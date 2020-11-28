@@ -1,0 +1,74 @@
+{
+	"name": "cronToHuman",
+	"displayName": "Cron to human language translator",
+	"description": "Describe cron-like schedule in a readable format",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.51.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "cronToHuman.insertComment",
+				"title": "Insert translation as a comment",
+				"category": "cronToHuman"
+			}
+		],
+		"configuration": {
+			"title": "Cron Helper",
+			"properties": {
+				"cronToHuman.use24HourTimeFormat": {
+					"type": "boolean",
+					"default": true,
+					"description": "If true, descriptions will use a 24-hour clock."
+				},
+				"cronToHuman.verbose": {
+					"type": "boolean",
+					"default": true,
+					"description": "Whether to use a verbose description."
+				},
+				"cronToHuman.enableCodeLens": {
+					"type": "boolean",
+					"default": false,
+					"description": "When enabled, the transcript is shown as a code lens."
+				},
+				"cronToHuman.enableHover": {
+					"type": "boolean",
+					"default": true,
+					"description": "When enabled, the transcript is shown in a hover tooltip."
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.51.0",
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.0",
+		"@types/node": "^12.11.7",
+		"eslint": "^7.9.0",
+		"@typescript-eslint/eslint-plugin": "^4.1.1",
+		"@typescript-eslint/parser": "^4.1.1",
+		"glob": "^7.1.6",
+		"mocha": "^8.1.3",
+		"typescript": "^4.0.2",
+		"vscode-test": "^1.4.0"
+	},
+	"dependencies": {
+		"cronstrue": "^1.105.0"
+	}
+}
