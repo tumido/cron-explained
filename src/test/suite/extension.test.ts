@@ -3,13 +3,44 @@ import * as assert from 'assert';
 // You can import and use all API from the 'vscode' module
 // as well as import your extension to test it
 import * as vscode from 'vscode';
-// import * as myExtension from '../../extension';
+import * as extension from '../../extension';
 
-suite('Extension Test Suite', () => {
-	vscode.window.showInformationMessage('Start all tests.');
+suite('insert comment command', () => {
+	test('should add a comment after a single call', async () => {
+		const document = await vscode.workspace.openTextDocument({ content: "0 0 1 * *" });
+		await vscode.window.showTextDocument(document);
+		await vscode.commands.executeCommand('cronToHuman.insertComment');
+		assert.strictEqual(document.getText(), "0 0 1 * * # At 00:00, on day 1 of the month");
+	});
+	test('should update comment if the value changed', async () => {
+		const document = await vscode.workspace.openTextDocument({
+			content: "0 0 1 * * # At 00:00, on day 1 of the month"
+		});
+		const editor = await vscode.window.showTextDocument(document);
+		await editor.edit(edit => edit.replace(new vscode.Range(0, 4, 0, 5), "*"));
+		await vscode.commands.executeCommand('cronToHuman.insertComment');
+		assert.strictEqual(document.getText(), "0 0 * * * # At 00:00, every day");
+	});
+});
 
-	test('Sample test', () => {
-		assert.equal(-1, [1, 2, 3].indexOf(5));
-		assert.equal(-1, [1, 2, 3].indexOf(0));
+suite('code lens', () => {
+	test('should be enabled', async () => {
+		await vscode.commands.executeCommand('cronToHuman.enableCodeLens');
+		assert.strictEqual(vscode.workspace.getConfiguration('cronToHuman').get('enableCodeLens'), true);
+	});
+	test('should be disabled', async () => {
+		await vscode.commands.executeCommand('cronToHuman.disableCodeLens');
+		assert.strictEqual(vscode.workspace.getConfiguration('cronToHuman').get('enableCodeLens'), false);
+	});
+});
+
+suite('hover', () => {
+	test('should be enabled', async () => {
+		await vscode.commands.executeCommand('cronToHuman.enableHover');
+		assert.strictEqual(vscode.workspace.getConfiguration('cronToHuman').get('enableHover'), true);
+	});
+	test('should be disabled', async () => {
+		await vscode.commands.executeCommand('cronToHuman.disableHover');
+		assert.strictEqual(vscode.workspace.getConfiguration('cronToHuman').get('enableHover'), false);
 	});
 });

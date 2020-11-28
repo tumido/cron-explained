@@ -151,16 +151,16 @@ const codeLensResolver = (codeLens: vscode.CodeLens, token: vscode.CancellationT
  * @param property Configuration property.
  * @param enabled State of the property.
  */
-const changeCommandState = (property: string, enabled: boolean) => () => {
-	vscode.workspace.getConfiguration("cronToHuman").update(property, enabled, true);
+const changeSettingsState = (property: string, enabled: boolean) => async () => {
+	await vscode.workspace.getConfiguration("cronToHuman").update(property, enabled, true);
 };
 
 export const activate = (context: vscode.ExtensionContext) => {
 	[
-		vscode.commands.registerCommand("cronToHuman.enableCodeLens", changeCommandState("enableCodeLens", true)),
-		vscode.commands.registerCommand("cronToHuman.disableCodeLens", changeCommandState("enableCodeLens", false)),
-		vscode.commands.registerCommand("cronToHuman.enableHover", changeCommandState("enableHover", true)),
-		vscode.commands.registerCommand("cronToHuman.disableHover", changeCommandState("enableHover", false)),
+		vscode.commands.registerCommand("cronToHuman.enableCodeLens", changeSettingsState("enableCodeLens", true)),
+		vscode.commands.registerCommand("cronToHuman.disableCodeLens", changeSettingsState("enableCodeLens", false)),
+		vscode.commands.registerCommand("cronToHuman.enableHover", changeSettingsState("enableHover", true)),
+		vscode.commands.registerCommand("cronToHuman.disableHover", changeSettingsState("enableHover", false)),
 		vscode.commands.registerTextEditorCommand('cronToHuman.insertComment', insertComment),
 		vscode.languages.registerCodeLensProvider("*", { provideCodeLenses: codeLensProvider, resolveCodeLens: codeLensResolver }),
 		vscode.languages.registerHoverProvider('*', { provideHover: hoverProvider }),
