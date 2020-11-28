@@ -12,6 +12,9 @@ const regexpSections = [
 const regexpSelfExplanatory = regexpSections.slice(0, 2).join("");
 const regexpBase = regexpSections.join("");
 
+/**
+ * Create construe options object from workspace configuration and environment.
+ */
 const getConstrueOptions = (): Options => {
 	const config = vscode.workspace.getConfiguration('cronToHuman');
 	return {
@@ -26,6 +29,10 @@ let cronstrueOptions = getConstrueOptions();
 const isCodeLenseEnabled = (): boolean => vscode.workspace.getConfiguration("cronToHuman").get("enableCodeLens", true);
 const isHoverEnabled = (): boolean => vscode.workspace.getConfiguration("cronToHuman").get("enableHover", true);
 
+/**
+ * Parses a cron string into a human readable format.
+ * @param string Cron string
+ */
 const translate = (string: string): string => {
 	try {
 		return cronstrue.toString(string, cronstrueOptions);
@@ -39,6 +46,13 @@ const translate = (string: string): string => {
 	}
 };
 
+/**
+ * Insert parsed cron string as a comment at the end of line.
+ *
+ * @param editor Editor attached to a document
+ * @param edit Edit for the text editor
+ * @param anotherPosition Optional position elsewhere than the current cursor, inferred for code lenses.
+ */
 const insertComment = (editor: vscode.TextEditor, edit: vscode.TextEditorEdit, anotherPosition?: vscode.Range) => {
 	const regexp = new RegExp(regexpBase);
 	const lineNumber = anotherPosition?.start.line || editor.selection.start.line;
@@ -64,11 +78,22 @@ const insertComment = (editor: vscode.TextEditor, edit: vscode.TextEditorEdit, a
 	}
 };
 
+/**
+ * Update cronstrue options when config has changed.
+ *
+ * @param event An event describing the change in Configuration
+ */
 const handleConfigChange = (event: vscode.ConfigurationChangeEvent) => {
 	if (!event.affectsConfiguration('cronToHuman')) { return; }
 	cronstrueOptions = getConstrueOptions();
 };
 
+/**
+ * Hover tooltip provider shows translated cron string on mouse over.
+ * @param doc Represents a text document.
+ * @param pos Represents a line position in a document.
+ * @param token Cancellation token.
+ */
 const hoverProvider = (doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken) => {
 	if (!isHoverEnabled()) { return null; }
 	const regexp = new RegExp(regexpBase);
@@ -79,6 +104,11 @@ const hoverProvider = (doc: vscode.TextDocument, pos: vscode.Position, token: vs
 	return translated ? new vscode.Hover(translated) : null;
 };
 
+/**
+ * Locates lines where the code lense should be displayed.
+ * @param doc Represents a text document.
+ * @param token Cancellation token.
+ */
 const codeLensProvider = (doc: vscode.TextDocument, token: vscode.CancellationToken) => {
 	if (!isCodeLenseEnabled()) { return []; }
 
@@ -99,6 +129,11 @@ const codeLensProvider = (doc: vscode.TextDocument, token: vscode.CancellationTo
 	return codeLenses;
 };
 
+/**
+ * Resolves command for a code lense instance.
+ * @param codeLens A code lens instance.
+ * @param token Cancellation token.
+ */
 const codeLensResolver = (codeLens: vscode.CodeLens, token: vscode.CancellationToken) => {
 	if (!isCodeLenseEnabled()) { return null; }
 
@@ -110,8 +145,14 @@ const codeLensResolver = (codeLens: vscode.CodeLens, token: vscode.CancellationT
 	return codeLens;
 };
 
-const changeCommandState = (command: string, enabled: boolean) => () => {
-	vscode.workspace.getConfiguration("cronToHuman").update(command, enabled, true);
+
+/**
+ * Helper for changing configuration values.
+ * @param property Configuration property.
+ * @param enabled State of the property.
+ */
+const changeCommandState = (property: string, enabled: boolean) => () => {
+	vscode.workspace.getConfiguration("cronToHuman").update(property, enabled, true);
 };
 
 export const activate = (context: vscode.ExtensionContext) => {
