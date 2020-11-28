@@ -19,6 +19,26 @@
 				"command": "cronToHuman.insertComment",
 				"title": "Insert translation as a comment",
 				"category": "cronToHuman"
+			},
+			{
+				"command": "cronToHuman.enableCodeLens",
+				"title": "Enables code lenses",
+				"category": "cronToHuman"
+			},
+			{
+				"command": "cronToHuman.disableCodeLens",
+				"title": "Disables code lenses",
+				"category": "cronToHuman"
+			},
+			{
+				"command": "cronToHuman.enableHover",
+				"title": "Enables hover tooltip",
+				"category": "cronToHuman"
+			},
+			{
+				"command": "cronToHuman.disableHover",
+				"title": "Disables hover tooltip",
+				"category": "cronToHuman"
 			}
 		],
 		"configuration": {
