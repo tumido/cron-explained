@@ -9,7 +9,7 @@ suite('insert comment command', () => {
 	test('should add a comment after a single call', async () => {
 		const document = await vscode.workspace.openTextDocument({ content: "0 0 1 * *" });
 		await vscode.window.showTextDocument(document);
-		await vscode.commands.executeCommand('cronToHuman.insertComment');
+		await vscode.commands.executeCommand('cron-explained.insertComment');
 		assert.strictEqual(document.getText(), "0 0 1 * * # At 00:00, on day 1 of the month");
 	});
 	test('should update comment if the value changed', async () => {
@@ -18,29 +18,29 @@ suite('insert comment command', () => {
 		});
 		const editor = await vscode.window.showTextDocument(document);
 		await editor.edit(edit => edit.replace(new vscode.Range(0, 4, 0, 5), "*"));
-		await vscode.commands.executeCommand('cronToHuman.insertComment');
+		await vscode.commands.executeCommand('cron-explained.insertComment');
 		assert.strictEqual(document.getText(), "0 0 * * * # At 00:00, every day");
 	});
 });
 
 suite('code lens', () => {
 	test('should be enabled', async () => {
-		await vscode.commands.executeCommand('cronToHuman.enableCodeLens');
-		assert.strictEqual(vscode.workspace.getConfiguration('cronToHuman').get('enableCodeLens'), true);
+		await vscode.commands.executeCommand('cron-explained.enableCodeLens');
+		assert.strictEqual(vscode.workspace.getConfiguration('cron-explained').get('enableCodeLens'), true);
 	});
 	test('should be disabled', async () => {
-		await vscode.commands.executeCommand('cronToHuman.disableCodeLens');
-		assert.strictEqual(vscode.workspace.getConfiguration('cronToHuman').get('enableCodeLens'), false);
+		await vscode.commands.executeCommand('cron-explained.disableCodeLens');
+		assert.strictEqual(vscode.workspace.getConfiguration('cron-explained').get('enableCodeLens'), false);
 	});
 });
 
 suite('hover', () => {
 	test('should be enabled', async () => {
-		await vscode.commands.executeCommand('cronToHuman.enableHover');
-		assert.strictEqual(vscode.workspace.getConfiguration('cronToHuman').get('enableHover'), true);
+		await vscode.commands.executeCommand('cron-explained.enableHover');
+		assert.strictEqual(vscode.workspace.getConfiguration('cron-explained').get('enableHover'), true);
 	});
 	test('should be disabled', async () => {
-		await vscode.commands.executeCommand('cronToHuman.disableHover');
-		assert.strictEqual(vscode.workspace.getConfiguration('cronToHuman').get('enableHover'), false);
+		await vscode.commands.executeCommand('cron-explained.disableHover');
+		assert.strictEqual(vscode.workspace.getConfiguration('cron-explained').get('enableHover'), false);
 	});
 });

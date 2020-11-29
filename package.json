@@ -1,5 +1,5 @@
 {
-	"name": "cronToHuman",
+	"name": "cron-explained",
 	"displayName": "Cron to human language translator",
 	"description": "Describe cron-like schedule in a readable format",
 	"version": "0.0.1",
@@ -16,50 +16,50 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "cronToHuman.insertComment",
+				"command": "cron-explained.insertComment",
 				"title": "Insert translation as a comment",
-				"category": "cronToHuman"
+				"category": "cron-explained"
 			},
 			{
-				"command": "cronToHuman.enableCodeLens",
+				"command": "cron-explained.enableCodeLens",
 				"title": "Enables code lenses",
-				"category": "cronToHuman"
+				"category": "cron-explained"
 			},
 			{
-				"command": "cronToHuman.disableCodeLens",
+				"command": "cron-explained.disableCodeLens",
 				"title": "Disables code lenses",
-				"category": "cronToHuman"
+				"category": "cron-explained"
 			},
 			{
-				"command": "cronToHuman.enableHover",
+				"command": "cron-explained.enableHover",
 				"title": "Enables hover tooltip",
-				"category": "cronToHuman"
+				"category": "cron-explained"
 			},
 			{
-				"command": "cronToHuman.disableHover",
+				"command": "cron-explained.disableHover",
 				"title": "Disables hover tooltip",
-				"category": "cronToHuman"
+				"category": "cron-explained"
 			}
 		],
 		"configuration": {
 			"title": "Cron Helper",
 			"properties": {
-				"cronToHuman.use24HourTimeFormat": {
+				"cron-explained.use24HourTimeFormat": {
 					"type": "boolean",
 					"default": true,
 					"description": "If true, descriptions will use a 24-hour clock."
 				},
-				"cronToHuman.verbose": {
+				"cron-explained.verbose": {
 					"type": "boolean",
 					"default": true,
 					"description": "Whether to use a verbose description."
 				},
-				"cronToHuman.enableCodeLens": {
+				"cron-explained.enableCodeLens": {
 					"type": "boolean",
 					"default": false,
 					"description": "When enabled, the transcript is shown as a code lens."
 				},
-				"cronToHuman.enableHover": {
+				"cron-explained.enableHover": {
 					"type": "boolean",
 					"default": true,
 					"description": "When enabled, the transcript is shown in a hover tooltip."
