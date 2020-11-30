@@ -1,7 +1,25 @@
 {
 	"name": "cron-explained",
-	"displayName": "Cron to human language translator",
-	"description": "Describe cron-like schedule in a readable format",
+	"displayName": "Cron Explained",
+	"description": "Translate cron-like schedules to a readable format",
+	"license": "GPL-3.0-or-later",
+	"homepage": "https://github.com/tumido/cron-explained",
+	"author": {
+		"name": "Tom Coufal",
+		"url": "https://github.com/tumido"
+	},
+	"keywords": [
+		"cron",
+		"codelens",
+		"tooltips"
+	],
+	"bugs": {
+		"url": "https://github.com/tumido/cron-explained/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/tumido/cron-explained.git"
+	},
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.51.0"
@@ -9,6 +27,12 @@
 	"categories": [
 		"Other"
 	],
+	"qna": "https://github.com/tumido/cron-explained/issues",
+	"extensionKind": [
+		"ui",
+		"workspace"
+	],
+	"preview": true,
 	"activationEvents": [
 		"*"
 	],
