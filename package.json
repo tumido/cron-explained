@@ -4,6 +4,7 @@
 	"description": "Translate cron-like schedules to a readable format",
 	"license": "GPL-3.0-or-later",
 	"homepage": "https://github.com/tumido/cron-explained",
+	"publisher": "tumido",
 	"author": {
 		"name": "Tom Coufal",
 		"url": "https://github.com/tumido"
@@ -29,10 +30,10 @@
 	],
 	"qna": "https://github.com/tumido/cron-explained/issues",
 	"extensionKind": [
-		"ui",
-		"workspace"
+		"ui"
 	],
 	"preview": true,
+	"private": true,
 	"activationEvents": [
 		"*"
 	],
@@ -100,19 +101,36 @@
 		"test": "node ./out/test/runTest.js"
 	},
 	"devDependencies": {
-		"@types/vscode": "^1.51.0",
+		"@semantic-release/github": "^7.2.0",
 		"@types/glob": "^7.1.3",
 		"@types/mocha": "^8.0.0",
 		"@types/node": "^12.11.7",
-		"eslint": "^7.9.0",
+		"@types/vscode": "^1.51.0",
 		"@typescript-eslint/eslint-plugin": "^4.1.1",
 		"@typescript-eslint/parser": "^4.1.1",
+		"eslint": "^7.9.0",
 		"glob": "^7.1.6",
 		"mocha": "^8.1.3",
+		"semantic-release": "^17.3.0",
 		"typescript": "^4.0.2",
 		"vscode-test": "^1.4.0"
 	},
 	"dependencies": {
 		"cronstrue": "^1.105.0"
+	},
+	"release": {
+		"branches": "master",
+		"verifyConditions": [
+			"@semantic-release/github"
+		],
+		"publish": [
+			"@semantic-release/github"
+		],
+		"success": [
+			"@semantic-release/github"
+		],
+		"fail": [
+			"@semantic-release/github"
+		]
 	}
 }
