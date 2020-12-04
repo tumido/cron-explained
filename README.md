@@ -8,13 +8,19 @@ Have you ever found the cron format confusing? Did you ever need to know what is
 
 When hovering over cron-like schedules, display a human friendly explanation in a tooltip.
 
+![hover](https://raw.githubusercontent.com/tumido/cron-explained/master/docs/assets/hover.gif)
+
 ### Code lens
 
 Show code lens action to make inserting explanation as comment easier.
 
+![code-lens](https://raw.githubusercontent.com/tumido/cron-explained/master/docs/assets/code-lens.gif)
+
 ### Save as comment
 
 Command allowing you add an inline comment with the explanation.
+
+![comment](https://raw.githubusercontent.com/tumido/cron-explained/master/docs/assets/comment.gif)
 
 ## Extension Settings
 
