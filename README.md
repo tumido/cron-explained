@@ -30,3 +30,8 @@ This extension contributes the following settings:
 - `cron-explained.verbose`: Whether to use a verbose description. Defaults to `true`.
 - `cron-explained.enableCodeLens`: When enabled, the transcript is shown as a code lens. Defaults to `false`.
 - `cron-explained.enableHover`: When enabled, the transcript is shown in a hover tooltip. Defaults to `true`.
+
+## Credit
+
+1. [unDraw](https://undraw.co) for wonderful art.
+2. [`cronstrue`](https://www.npmjs.com/package/cronstrue) which provides the cron translations.
