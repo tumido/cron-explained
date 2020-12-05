@@ -21,7 +21,7 @@
 		"type": "git",
 		"url": "https://github.com/tumido/cron-explained.git"
 	},
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"engines": {
 		"vscode": "^1.51.0"
 	},

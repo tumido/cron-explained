@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/tumido/cron-explained/compare/v1.0.3...v1.0.4) (2020-12-05)
+
+
+### Bug Fixes
+
+* Unify enable/disable commands as toggle ([4cc4240](https://github.com/tumido/cron-explained/commit/4cc4240ee7cedeff92c29a455eb598f0a8a23280))
+
 ## [1.0.3](https://github.com/tumido/cron-explained/compare/v1.0.2...v1.0.3) (2020-12-05)
 
 ## [1.0.2](https://github.com/tumido/cron-explained/compare/v1.0.1...v1.0.2) (2020-12-05)
