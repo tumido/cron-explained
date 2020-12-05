@@ -40,7 +40,11 @@
 	"preview": true,
 	"private": true,
 	"activationEvents": [
-		"*"
+		"onStartupFinished",
+		"onCommand:cron-explained.insertComment",
+		"onCommand:cron-explained.toggleCodeLens",
+		"onCommand:cron-explained.toggleHover",
+		"onDebug"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
