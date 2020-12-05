@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/tumido/cron-explained/compare/v1.0.1...v1.0.2) (2020-12-05)
+
+
+### Bug Fixes
+
+* Strip away extra files from bundle ([88c316b](https://github.com/tumido/cron-explained/commit/88c316b05b56be3ea7bccde42413c2fd91d18752))
+
 ## [1.0.1](https://github.com/tumido/cron-explained/compare/v1.0.0...v1.0.1) (2020-12-04)
 
 # 1.0.0 (2020-12-04)
