@@ -45,6 +45,9 @@ jobs:
         id: semantic
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Try to fail the workflow if there's no new semantic release
+        if: ${{ steps.semantic.outputs.new_release_published }}
+        run: exit 1
       - name: Build VSIX extension file
         uses: HaaLeo/publish-vscode-extension@v0
         id: vsixBuild
