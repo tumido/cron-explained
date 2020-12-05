@@ -1,5 +1,7 @@
 import * as assert from 'assert';
+import { suiteTeardown } from 'mocha';
 import * as vscode from 'vscode';
+import * as extension from '../../extension';
 
 suite('executeCommand', () => {
 	let configuration: [string, string | undefined][] = [];
@@ -54,6 +56,37 @@ suite('executeCommand', () => {
 			await vscode.workspace.getConfiguration('cron-explained').update('enableHover', true, true);
 			await vscode.commands.executeCommand('cron-explained.toggleHover');
 			assert.strictEqual(vscode.workspace.getConfiguration('cron-explained').get('enableHover'), false);
+		});
+	});
+
+	suiteTeardown(() => {
+		configuration.map(async ([setting, value]) => {
+			await vscode.workspace.getConfiguration('cron-explained').update(setting, value, true);
+		});
+	});
+});
+
+
+suite('unit', () => {
+	let configuration: [string, string | undefined][] = [];
+
+	suiteSetup(() => {
+		configuration = ['locale', 'verbose'].map(setting => (
+			[setting, vscode.workspace.getConfiguration('cron-explained').get(setting)]
+		));
+	});
+
+	suite('getConstrueOptions', () => {
+		test('should use env locale', async () => {
+			await vscode.workspace.getConfiguration('cron-explained').update('locale', undefined, true);
+			const options = extension.getConstrueOptions();
+			assert.strictEqual(options.locale, vscode.env.language);
+		});
+
+		test('should use set locale', async () => {
+			await vscode.workspace.getConfiguration('cron-explained').update('locale', 'de', true);
+			const options = extension.getConstrueOptions();
+			assert.strictEqual(options.locale, 'de');
 		});
 	});
 

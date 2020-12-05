@@ -15,12 +15,12 @@ const regexpBase = regexpSections.join("");
 /**
  * Create construe options object from workspace configuration and environment.
  */
-const getConstrueOptions = (): Options => {
+export const getConstrueOptions = (): Options => {
 	const config = vscode.workspace.getConfiguration('cron-explained');
 	return {
 		use24HourTimeFormat: Boolean(config.get('use24HourTimeFormat')),
 		verbose: Boolean(config.get('verbose')),
-		locale: vscode.env.language
+		locale: config.get('locale') || vscode.env.language,
 	};
 };
 

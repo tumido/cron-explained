@@ -87,6 +87,11 @@
 					"type": "boolean",
 					"default": true,
 					"description": "When enabled, the transcript is shown in a hover tooltip."
+				},
+				"cron-explained.locale": {
+					"type": "string",
+					"default": "",
+					"description": "Enforce specific language for transcriptions. By default the VSCode environment language is used."
 				}
 			}
 		}

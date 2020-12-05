@@ -34,12 +34,13 @@ Command allowing you add an inline comment with the explanation.
 
 This extension contributes the following settings:
 
-| Settings                             | Description                                               | Default value |
-| ------------------------------------ | --------------------------------------------------------- | ------------- |
-| `cron-explained.use24HourTimeFormat` | If set, descriptions will use a 24-hour clock.            | `true`        |
-| `cron-explained.verbose`             | Whether to use a verbose description.                     | `true`        |
-| `cron-explained.enableCodeLens`      | When enabled, the transcript is shown as a code lens.     | `false`       |
-| `cron-explained.enableHover`         | When enabled, the transcript is shown in a hover tooltip. | `true`        |
+| Settings                             | Description                                               | Default value        |
+| ------------------------------------ | --------------------------------------------------------- | -------------------- |
+| `cron-explained.use24HourTimeFormat` | If set, descriptions will use a 24-hour clock.            | `true`               |
+| `cron-explained.verbose`             | Whether to use a verbose description.                     | `true`               |
+| `cron-explained.enableCodeLens`      | When enabled, the transcript is shown as a code lens.     | `false`              |
+| `cron-explained.enableHover`         | When enabled, the transcript is shown in a hover tooltip. | `true`               |
+| `cron-explained.locale`              | Enforce specific language for transcriptions.             | Environment language |
 
 ## Credit
 
