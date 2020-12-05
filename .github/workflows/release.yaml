@@ -1,10 +1,8 @@
 name: Release
 
 on:
-  release:
-    types: [published]
-    branches:
-      - master
+  repository_dispatch:
+    types: [trigger-release]
 
 jobs:
   build:
@@ -13,6 +11,17 @@ jobs:
     outputs:
       vsixPath: ${{ steps.vsixBuild.outputs.vsixPath }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Build VSIX extension file
         uses: HaaLeo/publish-vscode-extension@v0
         id: vsixBuild

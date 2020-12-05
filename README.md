@@ -1,4 +1,12 @@
-# Cron Helper
+![logo](https://raw.githubusercontent.com/tumido/cron-explained/master/docs/assets/icon_large.png)
+
+# Cron Explained
+
+[![](https://vsmarketplacebadge.apphb.com/version-short/tumido.cron-explained.svg)](https://marketplace.visualstudio.com/items?itemName=tumido.cron-explained)
+[![](https://img.shields.io/github/v/release/tumido/cron-explained)](https://github.com/tumido/cron-explained/releases)
+[![](https://img.shields.io/github/license/tumido/cron-explained)](https://github.com/tumido/cron-explained/blob/master/LICENSE)
+[![](https://github.com/tumido/cron-explained/workflows/Release/badge.svg)](https://github.com/tumido/cron-explained/actions?query=workflow%3ARelease)
+![Dependabot](https://badgen.net/dependabot/tumido/cron-explained?icon=dependabot)
 
 Have you ever found the cron format confusing? Did you ever need to know what is the "real" schedule? Are you tired of copy pasting the `"2,3,4 */2 * * 4"` into other online tools? This extension might come handy to you.
 
@@ -26,10 +34,12 @@ Command allowing you add an inline comment with the explanation.
 
 This extension contributes the following settings:
 
-- `cron-explained.use24HourTimeFormat`: If true, descriptions will use a 24-hour clock. Defaults to `true`.
-- `cron-explained.verbose`: Whether to use a verbose description. Defaults to `true`.
-- `cron-explained.enableCodeLens`: When enabled, the transcript is shown as a code lens. Defaults to `false`.
-- `cron-explained.enableHover`: When enabled, the transcript is shown in a hover tooltip. Defaults to `true`.
+| Settings                             | Description                                               | Default value |
+| ------------------------------------ | --------------------------------------------------------- | ------------- |
+| `cron-explained.use24HourTimeFormat` | If set, descriptions will use a 24-hour clock.            | `true`        |
+| `cron-explained.verbose`             | Whether to use a verbose description.                     | `true`        |
+| `cron-explained.enableCodeLens`      | When enabled, the transcript is shown as a code lens.     | `false`       |
+| `cron-explained.enableHover`         | When enabled, the transcript is shown in a hover tooltip. | `true`        |
 
 ## Credit
 
