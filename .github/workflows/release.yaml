@@ -5,6 +5,20 @@ on:
     types: [trigger-release]
 
 jobs:
+  notify-start:
+    name: Notify when started
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.client_payload.github.event.issue.number }}
+          comment-id: ${{ github.event.client_payload.commentId }}
+          body: |
+            Publishing...
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -87,3 +101,25 @@ jobs:
   #         pat: ${{ secrets.OPEN_VSX_TOKEN }}
   #         extensionFile: ${{ needs.build.outputs.vsixPath }}
   #         packagePath: ""
+
+  notify-end:
+    name: Notify when finished
+    needs: publish-vs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.client_payload.github.event.issue.number }}
+          comment-id: ${{ github.event.client_payload.commentId }}
+          body: |
+            Released.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Close Issue
+        uses: peter-evans/close-issue@v1
+        with:
+          issue-number: ${{ github.event.client_payload.github.event.issue.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
