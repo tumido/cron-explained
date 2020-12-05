@@ -37,7 +37,6 @@
 		"color": "#191919",
 		"theme": "dark"
 	},
-	"preview": true,
 	"private": true,
 	"activationEvents": [
 		"onStartupFinished",
