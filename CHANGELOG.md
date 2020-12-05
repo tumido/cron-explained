@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/tumido/cron-explained/compare/v1.0.4...v1.0.5) (2020-12-05)
+
+
+### Bug Fixes
+
+* Narrow the activation events scope for better start up performance ([b33b50e](https://github.com/tumido/cron-explained/commit/b33b50e50f37be56fa07eb72be1f6d38a0463951))
+
 ## [1.0.4](https://github.com/tumido/cron-explained/compare/v1.0.3...v1.0.4) (2020-12-05)
 
 
