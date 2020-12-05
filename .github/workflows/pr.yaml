@@ -55,3 +55,12 @@ jobs:
           name: extension
           path: "*.vsix"
           retention-days: 1
+
+  prow:
+    name: Prow
+    runs-on: ubuntu-latest
+    steps:
+      - uses: jpmcb/prow-github-actions@v1
+        with:
+          jobs: "lgtm"
+          github-token: "${{ secrets.GITHUB_TOKEN }}"

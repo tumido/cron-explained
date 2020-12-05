@@ -1,0 +1,65 @@
+name: Comment
+on:
+  issue_comment:
+    types: [created, edited]
+
+jobs:
+  prow-all:
+    name: Prow for everybody
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run prow
+        uses: jpmcb/prow-github-actions@v1
+        with:
+          prow-commands: |
+            /assign
+            /unassign
+            /approve
+            /retitle
+            /area
+            /kind
+            /priority
+            /remove
+            /lgtm
+            /close
+            /reopen
+            /lock
+            /milestone
+            /hold
+            /cc
+            /uncc
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+
+  prow-write:
+    name: Prow for write access
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if user has write access
+        uses: lannonbr/repo-permission-check-action@2.0.0
+        continue-on-error: true
+        with:
+          permission: write
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run prow
+        uses: jpmcb/prow-github-actions@v1
+        if: success()
+        with:
+          prow-commands: |
+            /assign
+            /unassign
+            /approve
+            /retitle
+            /area
+            /kind
+            /priority
+            /remove
+            /lgtm
+            /close
+            /reopen
+            /lock
+            /milestone
+            /hold
+            /cc
+            /uncc
+          github-token: "${{ secrets.GITHUB_TOKEN }}"

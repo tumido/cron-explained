@@ -1,0 +1,9 @@
+kind:
+  - bug
+  - cleanup
+  - documentation
+  - feature
+  - regression
+priority:
+  - low
+  - high
