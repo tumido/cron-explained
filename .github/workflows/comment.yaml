@@ -10,25 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run prow
-        uses: jpmcb/prow-github-actions@v1
+        uses: jpmcb/prow-github-actions@v1.1.1
         with:
           prow-commands: |
             /assign
             /unassign
-            /approve
             /retitle
             /area
             /kind
             /priority
             /remove
-            /lgtm
             /close
-            /reopen
-            /lock
-            /milestone
-            /hold
-            /cc
-            /uncc
           github-token: "${{ secrets.GITHUB_TOKEN }}"
 
   prow-write:
@@ -43,20 +35,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Run prow
-        uses: jpmcb/prow-github-actions@v1
+        uses: jpmcb/prow-github-actions@v1.1.1
         if: success()
         with:
           prow-commands: |
-            /assign
-            /unassign
             /approve
-            /retitle
-            /area
-            /kind
-            /priority
-            /remove
             /lgtm
-            /close
             /reopen
             /lock
             /milestone
