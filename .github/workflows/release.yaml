@@ -1,0 +1,80 @@
+name: Publish
+
+on:
+  release:
+    types: [published]
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    outputs:
+      vsixPath: ${{ steps.vsixBuild.outputs.vsixPath }}
+    steps:
+      - name: Build VSIX extension file
+        uses: HaaLeo/publish-vscode-extension@v0
+        id: vsixBuild
+        with:
+          dryRun: true
+          pat: stub
+
+      - name: Archive the extension build file
+        uses: actions/upload-artifact@v2
+        with:
+          name: extension
+          path: ${{ steps.vsixBuild.outputs.vsixPath }}
+
+      - name: Get release
+        id: release
+        uses: jossef/action-latest-release-info@v1.1.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Add VSIX release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: ${{ steps.vsixBuild.outputs.vsixPath }}
+          asset_name: ${{ steps.vsixBuild.outputs.vsixPath }}
+          asset_content_type: application/vsix
+
+  publish-vs:
+    name: VS Marketplace
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download built extension artifact
+        uses: actions/download-artifact@v2
+        id: download
+        with:
+          name: extension
+
+      - name: Publish to Visual Studio Marketplace
+        uses: HaaLeo/publish-vscode-extension@v0
+        with:
+          pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+          registryUrl: https://marketplace.visualstudio.com
+          extensionFile: ${{ needs.build.outputs.vsixPath }}
+          packagePath: ""
+  #
+  # publish-open-vsx:
+  #   name: VS Marketplace
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Download built extension artifact
+  #       uses: actions/download-artifact@v2
+  #       id: download
+  #       with:
+  #         name: extension
+  #
+  #     - name: Publish to Open VSX Registry
+  #       uses: HaaLeo/publish-vscode-extension@v0
+  #       id: publishToOpenVSX
+  #       with:
+  #         pat: ${{ secrets.OPEN_VSX_TOKEN }}
+  #         extensionFile: ${{ needs.build.outputs.vsixPath }}
+  #         packagePath: ""

@@ -1,4 +1,4 @@
-name: Release
+name: Push
 
 on:
   push:
@@ -15,83 +15,38 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
           node-version: 14
+
       - name: Install dependencies
         run: npm install
+
       - name: Run headless test
         uses: GabrielBB/xvfb-action@v1.0
         with:
           run: npm test
-  build:
-    name: Build and release to GitHub
+
+  release:
+    name: Release
     needs: test
     runs-on: ubuntu-latest
-    outputs:
-      vsixPath: ${{ steps.vsixBuild.outputs.vsixPath }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
           node-version: 14
+
       - name: Install dependencies
         run: npm install
-      - name: Github release
+
+      - name: Release via semantic-release
         uses: cycjimmy/semantic-release-action@v2
         id: semantic
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Try to fail the workflow if there's no new semantic release
-        if: ${{ steps.semantic.outputs.new_release_published }}
-        run: exit 1
-      - name: Build VSIX extension file
-        uses: HaaLeo/publish-vscode-extension@v0
-        id: vsixBuild
-        with:
-          dryRun: true
-          pat: stub
-      - name: Archive the extension build file
-        uses: actions/upload-artifact@v2
-        with:
-          name: extension
-          path: ${{ steps.vsixBuild.outputs.vsixPath }}
-      - name: Get release
-        id: release
-        uses: jossef/action-latest-release-info@v1.1.0
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-      - name: Add VSIX release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: ${{ steps.vsixBuild.outputs.vsixPath }}
-          asset_name: ${{ steps.vsixBuild.outputs.vsixPath }}
-          asset_content_type: application/vsix
-  publish-vs:
-    name: Publish to Visual Studio Marketplace
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download built extension artifact
-        uses: actions/download-artifact@v2
-        id: download
-        with:
-          name: extension
-      # - name: Publish to Open VSX Registry
-      #   uses: HaaLeo/publish-vscode-extension@v0
-      #   id: publishToOpenVSX
-      #   with:
-      #     pat: ${{ secrets.OPEN_VSX_TOKEN }}
-      - name: Publish to Visual Studio Marketplace
-        uses: HaaLeo/publish-vscode-extension@v0
-        with:
-          pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
-          registryUrl: https://marketplace.visualstudio.com
-          extensionFile: ${{ needs.build.outputs.vsixPath }}
-          packagePath: ""
