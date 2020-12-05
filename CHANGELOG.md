@@ -1,3 +1,11 @@
+# [1.1.0](https://github.com/tumido/cron-explained/compare/v1.0.5...v1.1.0) (2020-12-05)
+
+
+### Features
+
+* Allow locale override ([2f6b024](https://github.com/tumido/cron-explained/commit/2f6b02435222fe5210654fcff66b7a46c745dfbf))
+* Remove from preview ([afc4d6b](https://github.com/tumido/cron-explained/commit/afc4d6b2cddb5dacfbd9df0810458c2f5cce7149))
+
 ## [1.0.5](https://github.com/tumido/cron-explained/compare/v1.0.4...v1.0.5) (2020-12-05)
 
 
