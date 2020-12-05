@@ -151,16 +151,15 @@ const codeLensResolver = (codeLens: vscode.CodeLens, token: vscode.CancellationT
  * @param property Configuration property.
  * @param enabled State of the property.
  */
-const changeSettingsState = (property: string, enabled: boolean) => async () => {
-	await vscode.workspace.getConfiguration("cron-explained").update(property, enabled, true);
+const changeSettingsState = (property: string) => async () => {
+	const currentValue = Boolean(vscode.workspace.getConfiguration("cron-explained").get(property));
+	await vscode.workspace.getConfiguration("cron-explained").update(property, !currentValue, true);
 };
 
 export const activate = (context: vscode.ExtensionContext) => {
 	[
-		vscode.commands.registerCommand("cron-explained.enableCodeLens", changeSettingsState("enableCodeLens", true)),
-		vscode.commands.registerCommand("cron-explained.disableCodeLens", changeSettingsState("enableCodeLens", false)),
-		vscode.commands.registerCommand("cron-explained.enableHover", changeSettingsState("enableHover", true)),
-		vscode.commands.registerCommand("cron-explained.disableHover", changeSettingsState("enableHover", false)),
+		vscode.commands.registerCommand("cron-explained.toggleCodeLens", changeSettingsState("enableCodeLens")),
+		vscode.commands.registerCommand("cron-explained.toggleHover", changeSettingsState("enableHover")),
 		vscode.commands.registerTextEditorCommand('cron-explained.insertComment', insertComment),
 		vscode.languages.registerCodeLensProvider("*", { provideCodeLenses: codeLensProvider, resolveCodeLens: codeLensResolver }),
 		vscode.languages.registerHoverProvider('*', { provideHover: hoverProvider }),

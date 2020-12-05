@@ -51,23 +51,13 @@
 				"category": "cron-explained"
 			},
 			{
-				"command": "cron-explained.enableCodeLens",
-				"title": "Enables code lenses",
+				"command": "cron-explained.toggleCodeLens",
+				"title": "Enables/disables code lenses",
 				"category": "cron-explained"
 			},
 			{
-				"command": "cron-explained.disableCodeLens",
-				"title": "Disables code lenses",
-				"category": "cron-explained"
-			},
-			{
-				"command": "cron-explained.enableHover",
-				"title": "Enables hover tooltip",
-				"category": "cron-explained"
-			},
-			{
-				"command": "cron-explained.disableHover",
-				"title": "Disables hover tooltip",
+				"command": "cron-explained.toggleHover",
+				"title": "Enables/disables hover tooltip",
 				"category": "cron-explained"
 			}
 		],
