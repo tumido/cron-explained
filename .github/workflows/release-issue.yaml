@@ -1,0 +1,104 @@
+name: Release issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  is-release:
+    name: Check if it's an issue release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if user has write access
+        uses: lannonbr/repo-permission-check-action@2.0.0
+        with:
+          permission: write
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check issue label
+        if: ${{ !contains(github.event.issue.labels.*.name, 'release') }}
+        run: exit 1
+
+  test:
+    name: Test
+    needs: is-release
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run headless test
+        uses: GabrielBB/xvfb-action@v1.0
+        with:
+          run: npm test
+
+  build:
+    name: Build
+    needs: is-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build VSIX extension file
+        uses: HaaLeo/publish-vscode-extension@v0
+        with:
+          dryRun: true
+          pat: stub
+
+      - name: Archive the extension build file
+        uses: actions/upload-artifact@v2
+        with:
+          name: extension
+          path: "*.vsix"
+          retention-days: 1
+
+  release:
+    name: Release
+    needs: [test, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Release via semantic-release
+        uses: cycjimmy/semantic-release-action@v2
+        id: semantic
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Trigger "Release" workflow if new release was created
+        uses: peter-evans/repository-dispatch@v1
+        if: steps.semantic.outputs.new_release_published == 'true'
+        with:
+          token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+          event-type: trigger-release
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'

@@ -56,33 +56,3 @@ jobs:
           name: extension
           path: "*.vsix"
           retention-days: 1
-
-  release:
-    name: Release
-    needs: [test, build]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Release via semantic-release
-        uses: cycjimmy/semantic-release-action@v2
-        id: semantic
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Trigger "Release" workflow if new release was created
-        uses: peter-evans/repository-dispatch@v1
-        if: steps.semantic.outputs.new_release_published == 'true'
-        with:
-          token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
-          event-type: trigger-release
-          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
