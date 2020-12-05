@@ -15,7 +15,7 @@ jobs:
           issue-number: ${{ github.event.client_payload.github.event.issue.number }}
           comment-id: ${{ github.event.client_payload.commentId }}
           body: |
-            Publishing...
+            🎁 Publishing to marketplaces...
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -113,7 +113,7 @@ jobs:
           issue-number: ${{ github.event.client_payload.github.event.issue.number }}
           comment-id: ${{ github.event.client_payload.commentId }}
           body: |
-            Released.
+            🎉 Released!
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

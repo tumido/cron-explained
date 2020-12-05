@@ -32,7 +32,7 @@ jobs:
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
-            You're not a maintainer @${{ github.event.issue.user.id }}. You can't trigger a release.
+            ⛔ You're not a maintainer @${{ github.event.issue.user.id }}. You can't trigger a release.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -47,7 +47,7 @@ jobs:
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
-            Release issue noticed. Triggering build...
+            🚀 Release issue noticed. Build triggered from ${{ github.sha }}.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -109,6 +109,14 @@ jobs:
     needs: [check-release, test, build]
     runs-on: ubuntu-latest
     steps:
+      - name: Update comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          comment-id: ${{ needs.check-release.outputs.commentId }}
+          body: |
+            📦 Releasing to Github...
+
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -119,14 +127,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
-      - name: Update comment
-        uses: peter-evans/create-or-update-comment@v1
-        with:
-          issue-number: ${{ github.event.issue.number }}
-          comment-id: ${{ needs.check-release.outputs.commentId }}
-          body: |
-            Releasing to Github...
 
       - name: Release via semantic-release
         uses: cycjimmy/semantic-release-action@v2
@@ -149,7 +149,7 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           comment-id: ${{ needs.check-release.outputs.commentId }}
           body: |
-            Semantic release determined that no release is needed. Closing.
+            ⛔ Semantic release determined that no release is needed. Closing.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
