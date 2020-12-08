@@ -37,7 +37,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Exit on failure
-        if: ${{ !steps.access.outcome == 'failure' && steps.releaseLabel.outcome == 'success' }}
+        if: ${{ steps.access.outcome == 'failure' || steps.releaseLabel.outcome == 'failure' }}
         run: exit 1
 
       - name: Create success comment
