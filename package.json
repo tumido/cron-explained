@@ -1,159 +1,159 @@
 {
-	"name": "cron-explained",
-	"displayName": "Cron Explained",
-	"description": "Translate cron-like schedules to a readable format",
-	"license": "GPL-3.0-or-later",
-	"homepage": "https://github.com/tumido/cron-explained",
-	"publisher": "tumido",
-	"author": {
-		"name": "Tom Coufal",
-		"url": "https://github.com/tumido"
-	},
-	"keywords": [
-		"cron",
-		"codelens",
-		"tooltips"
-	],
-	"bugs": {
-		"url": "https://github.com/tumido/cron-explained/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/tumido/cron-explained.git"
-	},
-	"version": "1.1.0",
-	"engines": {
-		"vscode": "^1.51.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"qna": "https://github.com/tumido/cron-explained/issues",
-	"extensionKind": [
-		"ui"
-	],
-	"icon": "docs/assets/icon.png",
-	"galleryBanner": {
-		"color": "#191919",
-		"theme": "dark"
-	},
-	"private": true,
-	"activationEvents": [
-		"onStartupFinished",
-		"onCommand:cron-explained.insertComment",
-		"onCommand:cron-explained.toggleCodeLens",
-		"onCommand:cron-explained.toggleHover",
-		"onDebug"
-	],
-	"main": "./out/extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "cron-explained.insertComment",
-				"title": "Insert translation as a comment",
-				"category": "cron-explained"
-			},
-			{
-				"command": "cron-explained.toggleCodeLens",
-				"title": "Enables/disables code lenses",
-				"category": "cron-explained"
-			},
-			{
-				"command": "cron-explained.toggleHover",
-				"title": "Enables/disables hover tooltip",
-				"category": "cron-explained"
-			}
-		],
-		"configuration": {
-			"title": "Cron Helper",
-			"properties": {
-				"cron-explained.use24HourTimeFormat": {
-					"type": "boolean",
-					"default": true,
-					"description": "If true, descriptions will use a 24-hour clock."
-				},
-				"cron-explained.verbose": {
-					"type": "boolean",
-					"default": true,
-					"description": "Whether to use a verbose description."
-				},
-				"cron-explained.enableCodeLens": {
-					"type": "boolean",
-					"default": false,
-					"description": "When enabled, the transcript is shown as a code lens."
-				},
-				"cron-explained.enableHover": {
-					"type": "boolean",
-					"default": true,
-					"description": "When enabled, the transcript is shown in a hover tooltip."
-				},
-				"cron-explained.locale": {
-					"type": "string",
-					"default": "",
-					"description": "Enforce specific language for transcriptions. By default the VSCode environment language is used."
-				}
-			}
-		}
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile && npm run lint",
-		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js"
-	},
-	"devDependencies": {
-		"@semantic-release/changelog": "^5.0.1",
-		"@semantic-release/git": "^9.0.0",
-		"@semantic-release/github": "^7.2.0",
-		"@types/glob": "^7.1.3",
-		"@types/mocha": "^8.2.0",
-		"@types/node": "^14.14.14",
-		"@types/vscode": "^1.51.0",
-		"@typescript-eslint/eslint-plugin": "^4.10.0",
-		"@typescript-eslint/parser": "^4.10.0",
-		"eslint": "^7.15.0",
-		"glob": "^7.1.6",
-		"mocha": "^8.1.3",
-		"semantic-release": "^17.3.0",
-		"typescript": "^4.1.3",
-		"vscode-test": "^1.4.0"
-	},
-	"dependencies": {
-		"cronstrue": "^1.105.0"
-	},
-	"release": {
-		"branches": "master",
-		"verifyConditions": [
-			"@semantic-release/github"
-		],
-		"publish": [
-			"@semantic-release/github"
-		],
-		"success": [
-			"@semantic-release/github"
-		],
-		"fail": [
-			"@semantic-release/github"
-		],
-		"plugins": [
-			[
-				"@semantic-release/commit-analyzer",
-				{
-					"releaseRules": [
-						{
-							"type": "docs",
-							"release": "patch"
-						}
-					]
-				}
-			],
-			"@semantic-release/release-notes-generator",
-			"@semantic-release/changelog",
-			"@semantic-release/npm",
-			"@semantic-release/git",
-			"@semantic-release/github"
-		]
-	}
+    "name": "cron-explained",
+    "displayName": "Cron Explained",
+    "description": "Translate cron-like schedules to a readable format",
+    "license": "GPL-3.0-or-later",
+    "homepage": "https://github.com/tumido/cron-explained",
+    "publisher": "tumido",
+    "author": {
+        "name": "Tom Coufal",
+        "url": "https://github.com/tumido"
+    },
+    "keywords": [
+        "cron",
+        "codelens",
+        "tooltips"
+    ],
+    "bugs": {
+        "url": "https://github.com/tumido/cron-explained/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tumido/cron-explained.git"
+    },
+    "version": "1.1.0",
+    "engines": {
+        "vscode": "^1.51.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "qna": "https://github.com/tumido/cron-explained/issues",
+    "extensionKind": [
+        "ui"
+    ],
+    "icon": "docs/assets/icon.png",
+    "galleryBanner": {
+        "color": "#191919",
+        "theme": "dark"
+    },
+    "private": true,
+    "activationEvents": [
+        "onStartupFinished",
+        "onCommand:cron-explained.insertComment",
+        "onCommand:cron-explained.toggleCodeLens",
+        "onCommand:cron-explained.toggleHover",
+        "onDebug"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "cron-explained.insertComment",
+                "title": "Insert translation as a comment",
+                "category": "cron-explained"
+            },
+            {
+                "command": "cron-explained.toggleCodeLens",
+                "title": "Enables/disables code lenses",
+                "category": "cron-explained"
+            },
+            {
+                "command": "cron-explained.toggleHover",
+                "title": "Enables/disables hover tooltip",
+                "category": "cron-explained"
+            }
+        ],
+        "configuration": {
+            "title": "Cron Helper",
+            "properties": {
+                "cron-explained.use24HourTimeFormat": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "If true, descriptions will use a 24-hour clock."
+                },
+                "cron-explained.verbose": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to use a verbose description."
+                },
+                "cron-explained.enableCodeLens": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "When enabled, the transcript is shown as a code lens."
+                },
+                "cron-explained.enableHover": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "When enabled, the transcript is shown in a hover tooltip."
+                },
+                "cron-explained.locale": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Enforce specific language for transcriptions. By default the VSCode environment language is used."
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src --ext ts",
+        "test": "node ./out/test/runTest.js"
+    },
+    "devDependencies": {
+        "@semantic-release/changelog": "^5.0.1",
+        "@semantic-release/git": "^9.0.0",
+        "@semantic-release/github": "^7.2.0",
+        "@types/glob": "^7.1.3",
+        "@types/mocha": "^8.2.0",
+        "@types/node": "^14.14.14",
+        "@types/vscode": "^1.51.0",
+        "@typescript-eslint/eslint-plugin": "^4.10.0",
+        "@typescript-eslint/parser": "^4.10.0",
+        "eslint": "^7.15.0",
+        "glob": "^7.1.6",
+        "mocha": "^8.1.3",
+        "semantic-release": "^17.3.0",
+        "typescript": "^4.1.3",
+        "vscode-test": "^1.4.0"
+    },
+    "dependencies": {
+        "cronstrue": "^1.105.0"
+    },
+    "release": {
+        "branches": "master",
+        "verifyConditions": [
+            "@semantic-release/github"
+        ],
+        "publish": [
+            "@semantic-release/github"
+        ],
+        "success": [
+            "@semantic-release/github"
+        ],
+        "fail": [
+            "@semantic-release/github"
+        ],
+        "plugins": [
+            [
+                "@semantic-release/commit-analyzer",
+                {
+                    "releaseRules": [
+                        {
+                            "type": "docs",
+                            "release": "patch"
+                        }
+                    ]
+                }
+            ],
+            "@semantic-release/release-notes-generator",
+            "@semantic-release/changelog",
+            "@semantic-release/npm",
+            "@semantic-release/git",
+            "@semantic-release/github"
+        ]
+    }
 }
