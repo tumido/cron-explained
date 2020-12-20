@@ -4,9 +4,9 @@ import type { Options } from 'cronstrue/dist/options';
 import getCommentStyle from './commentStyles';
 
 const regexpSections = [
-    "(@(annually|yearly|monthly|weekly|daily|hourly|reboot))|",
-    "(@every (\\d+(ns|us|µs|ms|s|m|h))+)|",
-    "((((\\d+,)+\\d+|((\\d+|\\*)(\\/|-)\\d+)|\\d+|\\*) ?){5,7})"
+    "(@(annually|yearly|monthly|weekly|daily|hourly|reboot))",
+    "|(@every (\\d+(ns|us|µs|ms|s|m|h))+)",
+    "|((((\\d+,)+\\d+|((\\d+|\\*)(\\/|-)\\d+)|\\d+|\\*) ?){5,7})"
 ];
 
 const regexpSelfExplanatory = regexpSections.slice(0, 2).join("");
@@ -33,15 +33,15 @@ const isHoverEnabled = (): boolean => vscode.workspace.getConfiguration("cron-ex
  * Parses a cron string into a human readable format.
  * @param string Cron string
  */
-const translate = (string: string): string => {
+export const translate = (string: string): string => {
     try {
         return cronstrue.toString(string, cronstrueOptions);
     } catch (err) {
-        if (string.match(regexpSelfExplanatory) !== null) {
+        if (new RegExp(regexpSelfExplanatory).test(string)) {
             return "";
         } else {
             console.error(`Unable to parse "${string}"`);
-            throw err;
+            throw new Error(`cron-explained: Unable to parse "${string}"`);
         }
     }
 };
