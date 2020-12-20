@@ -83,24 +83,25 @@ jobs:
           registryUrl: https://marketplace.visualstudio.com
           extensionFile: ${{ needs.build.outputs.vsixPath }}
           packagePath: ""
-  #
-  # publish-open-vsx:
-  #   name: VS Marketplace
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Download built extension artifact
-  #       uses: actions/download-artifact@v2
-  #       id: download
-  #       with:
-  #         name: extension
-  #
-  #     - name: Publish to Open VSX Registry
-  #       uses: HaaLeo/publish-vscode-extension@v0
-  #       id: publishToOpenVSX
-  #       with:
-  #         pat: ${{ secrets.OPEN_VSX_TOKEN }}
-  #         extensionFile: ${{ needs.build.outputs.vsixPath }}
-  #         packagePath: ""
+
+  publish-open-vsx:
+    name: Open VSX Registry
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download built extension artifact
+        uses: actions/download-artifact@v2
+        id: download
+        with:
+          name: extension
+
+      - name: Publish to Open VSX Registry
+        uses: HaaLeo/publish-vscode-extension@v0
+        id: publishToOpenVSX
+        with:
+          pat: ${{ secrets.OPEN_VSX_TOKEN }}
+          extensionFile: ${{ needs.build.outputs.vsixPath }}
+          packagePath: ""
 
   notify-end:
     name: Notify when finished
