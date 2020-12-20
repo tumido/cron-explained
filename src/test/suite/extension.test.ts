@@ -68,15 +68,15 @@ suite('executeCommand', () => {
 
 
 suite('unit', () => {
-    let configuration: [string, string | undefined][] = [];
-
-    suiteSetup(() => {
-        configuration = ['locale', 'verbose'].map(setting => (
-            [setting, vscode.workspace.getConfiguration('cron-explained').get(setting)]
-        ));
-    });
-
     suite('getConstrueOptions', () => {
+        let configuration: [string, string | undefined][] = [];
+
+        suiteSetup(() => {
+            configuration = ['locale', 'verbose'].map(setting => (
+                [setting, vscode.workspace.getConfiguration('cron-explained').get(setting)]
+            ));
+        });
+
         test('should use env locale', async () => {
             await vscode.workspace.getConfiguration('cron-explained').update('locale', undefined, true);
             const options = extension.getConstrueOptions();
@@ -88,11 +88,25 @@ suite('unit', () => {
             const options = extension.getConstrueOptions();
             assert.strictEqual(options.locale, 'de');
         });
+
+        suiteTeardown(() => {
+            configuration.map(async ([setting, value]) => {
+                await vscode.workspace.getConfiguration('cron-explained').update(setting, value, true);
+            });
+        });
     });
 
-    suiteTeardown(() => {
-        configuration.map(async ([setting, value]) => {
-            await vscode.workspace.getConfiguration('cron-explained').update(setting, value, true);
+    suite('translate', () => {
+        test('should succeed on nontrivial cron', () => {
+            const translation = extension.translate('0 0 0 * * * 2020');
+            assert.strictEqual(translation, 'At 00:00, every day, only in 2020');
+        });
+        test('should gracefully fail on trivial cron', () => {
+            const translation = extension.translate('@daily');
+            assert.strictEqual(translation, "");
+        });
+        test('should fail grafegully for unknown cron format', () => {
+            assert.throws(() => extension.translate('this is not a cron format'), /cron-explained: Unable to parse/);
         });
     });
 });
