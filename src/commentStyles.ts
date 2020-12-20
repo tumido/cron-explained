@@ -42,15 +42,10 @@ const getCommentStyle = (lang?: string) => {
         case 'latex':
         case 'matlab':
             return [' %', '%'];
-        case 'jade':
-        case 'pug':
-            return [' //- ', ' -//'];
-        case 'fsharp':
-            return [' (* ', ' *)'];
         case 'bat':
             return ['REM ', ''];
         case 'vb':
-            return ["' ", " '"];
+            return [" ' ", ""];
         default:
             return ['  // ', ''];
     }

@@ -63,10 +63,9 @@ const insertComment = (editor: vscode.TextEditor, edit: vscode.TextEditorEdit, a
     const commentStyle = getCommentStyle(editor.document.languageId);
     const translated = translate(matches[0]);
 
-    let matchesComment;
-    if ((matchesComment = textLine.text.match(commentStyle[0])) !== null) {
+    if (new RegExp(`^.*${commentStyle[0]}[a-zA-Z0-9:, ]+${commentStyle[1]}$`).test(textLine.text)) {
         const deleteRange = new vscode.Range(
-            lineNumber, textLine.text.indexOf(matchesComment[0]),
+            lineNumber, textLine.text.lastIndexOf(commentStyle[0]),
             lineNumber, textLine.range.end.character
         );
         edit.delete(deleteRange);

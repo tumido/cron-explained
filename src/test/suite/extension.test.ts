@@ -105,7 +105,10 @@ suite('unit', () => {
             const translation = extension.translate('@daily');
             assert.strictEqual(translation, "");
         });
-        test('should fail grafegully for unknown cron format', () => {
+        test('should fail for invalid cron', () => {
+            assert.throws(() => extension.translate('0 0 0 0 0'), /cron-explained: Unable to parse/);
+        });
+        test('should fail gracefully for unknown cron format', () => {
             assert.throws(() => extension.translate('this is not a cron format'), /cron-explained: Unable to parse/);
         });
     });
