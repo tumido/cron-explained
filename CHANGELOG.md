@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/tumido/cron-explained/compare/v1.1.1...v1.1.2) (2020-12-21)
+
+
+### Bug Fixes
+
+* Release to Open VSX ([da61fbe](https://github.com/tumido/cron-explained/commit/da61fbe235bec156a139b3951d1a135c808fb1cf))
+
 ## [1.1.1](https://github.com/tumido/cron-explained/compare/v1.1.0...v1.1.1) (2020-12-21)
 
 
