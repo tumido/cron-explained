@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/tumido/cron-explained/compare/v1.1.0...v1.1.1) (2020-12-21)
+
+
+### Bug Fixes
+
+* Overwriting comments ([b8fd8e4](https://github.com/tumido/cron-explained/commit/b8fd8e49a98c99e91aeb445865632ea1b7482c97))
+
 # [1.1.0](https://github.com/tumido/cron-explained/compare/v1.0.5...v1.1.0) (2020-12-05)
 
 
