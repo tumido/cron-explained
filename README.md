@@ -2,11 +2,11 @@
 
 # Cron Explained
 
-[![](https://vsmarketplacebadge.apphb.com/version-short/tumido.cron-explained.svg)](https://marketplace.visualstudio.com/items?itemName=tumido.cron-explained)
 [![](https://img.shields.io/github/v/release/tumido/cron-explained)](https://github.com/tumido/cron-explained/releases)
+[![](https://img.shields.io/visual-studio-marketplace/v/tumido.cron-explained?label=vs%20marketplace)](https://marketplace.visualstudio.com/items?itemName=tumido.cron-explained)
+[![](https://img.shields.io/open-vsx/v/tumido/cron-explained)](https://open-vsx.org/extension/tumido/cron-explained)
 [![](https://img.shields.io/github/license/tumido/cron-explained)](https://github.com/tumido/cron-explained/blob/master/LICENSE)
-[![](https://github.com/tumido/cron-explained/workflows/Release/badge.svg)](https://github.com/tumido/cron-explained/actions?query=workflow%3ARelease)
-![Dependabot](https://badgen.net/dependabot/tumido/cron-explained?icon=dependabot)
+[![](https://img.shields.io/github/workflow/status/tumido/cron-explained/Release)](https://github.com/tumido/cron-explained/actions?query=workflow%3ARelease)
 
 Have you ever found the cron format confusing? Did you ever need to know what is the "real" schedule? Are you tired of copy pasting the `"2,3,4 */2 * * 4"` into other online tools? This extension might come handy to you.
 
