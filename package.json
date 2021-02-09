@@ -121,7 +121,7 @@
         "vscode-test": "^1.5.0"
     },
     "dependencies": {
-        "cronstrue": "^1.108.0"
+        "cronstrue": "^1.109.0"
     },
     "release": {
         "branches": "master",
