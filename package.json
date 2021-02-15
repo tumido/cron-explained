@@ -116,7 +116,7 @@
         "eslint": "^7.19.0",
         "glob": "^7.1.6",
         "mocha": "^8.3.0",
-        "semantic-release": "^17.3.8",
+        "semantic-release": "^17.3.9",
         "typescript": "^4.1.5",
         "vscode-test": "^1.5.0"
     },
