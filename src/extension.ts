@@ -95,10 +95,10 @@ const handleConfigChange = (event: vscode.ConfigurationChangeEvent) => {
  * @param token Cancellation token.
  */
 const hoverProvider = (doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken) => {
-    if (!isHoverEnabled()) { return null; }
+    if (!isHoverEnabled() || token.isCancellationRequested) { return null; }
     const regexp = new RegExp(regexpBase, 'i');
     const range = doc.getWordRangeAtPosition(pos, regexp);
-    if (!range) { return; }
+    if (!range || token.isCancellationRequested) { return; }
     const translated = translate(doc.getText(range));
 
     return translated ? new vscode.Hover(translated) : null;
@@ -110,7 +110,7 @@ const hoverProvider = (doc: vscode.TextDocument, pos: vscode.Position, token: vs
  * @param token Cancellation token.
  */
 const codeLensProvider = (doc: vscode.TextDocument, token: vscode.CancellationToken) => {
-    if (!isCodeLenseEnabled()) { return []; }
+    if (!isCodeLenseEnabled() || token.isCancellationRequested) { return []; }
 
     const text = doc.getText();
     const codeLenses = [];
@@ -125,6 +125,7 @@ const codeLensProvider = (doc: vscode.TextDocument, token: vscode.CancellationTo
         if (range) {
             codeLenses.push(new vscode.CodeLens(range));
         }
+        if (token.isCancellationRequested) { break; }
     }
     return codeLenses;
 };
@@ -135,7 +136,7 @@ const codeLensProvider = (doc: vscode.TextDocument, token: vscode.CancellationTo
  * @param token Cancellation token.
  */
 const codeLensResolver = (codeLens: vscode.CodeLens, token: vscode.CancellationToken) => {
-    if (!isCodeLenseEnabled()) { return null; }
+    if (!isCodeLenseEnabled() || token.isCancellationRequested) { return null; }
 
     codeLens.command = {
         title: "Explain Cron",
