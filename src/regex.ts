@@ -18,7 +18,7 @@ const mapBaseRegex = (unit: String, specialCase: SpecialCase = SpecialCase.none)
     let result = `\\?|\\*|(${range}(,${range})*)`;
 
     if (specialCase === SpecialCase.dayOfMonth) { result += `|((${unit})W)|(W(${unit}))|W|WL|LW`; }
-    if (specialCase === SpecialCase.dayOfWeek) { result += `|${verboseDayOfWeekRange}(,${verboseDayOfWeekRange})*`; }
+    if (specialCase === SpecialCase.dayOfWeek) { result += `|${verboseDayOfWeekRange}(,${verboseDayOfWeekRange})*|L`; }
     if (specialCase === SpecialCase.month) { result += `|${verboseMonthsRange}(,${verboseDayOfWeekRange})*`; }
 
     return `(${result})`;
@@ -33,7 +33,7 @@ export const longFormatCron =
         mapBaseRegex("[1-9]|1[012]", SpecialCase.month),
         mapBaseRegex("[0-7]", SpecialCase.dayOfWeek),
     ].join("\\s+") +
-    mapBaseRegex("\\d{4}") + "?" +
+    `(\\s+${mapBaseRegex("\\d{4}")})?` +
     "(?!(\\d|\\w))";
 
 export default longFormatCron;
