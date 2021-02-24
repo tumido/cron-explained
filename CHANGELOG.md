@@ -1,3 +1,21 @@
+# [1.2.0](https://github.com/tumido/cron-explained/compare/v1.1.2...v1.2.0) (2021-02-24)
+
+
+### Bug Fixes
+
+* Allow verbose ranges for day of week or month fields ([1d36e98](https://github.com/tumido/cron-explained/commit/1d36e98c38e455fb802d66b1dcedf2ce9b60a758))
+* Seconds are not optional in Quartz format ([440868c](https://github.com/tumido/cron-explained/commit/440868ccb816c709bf44b4cf6f471dd17c325948))
+* Support cancellation tokens ([04700c5](https://github.com/tumido/cron-explained/commit/04700c5883ac16c6d8ef6ee35df1a5aec814317a))
+* Year section spacing ([793cd4f](https://github.com/tumido/cron-explained/commit/793cd4f9065bf811fe331c96820720c1f0be9529))
+
+
+### Features
+
+* Add support for Quartz cron format ([ed67375](https://github.com/tumido/cron-explained/commit/ed67375bed233ad0c2f0e4ddcac52b6633e4c559))
+* Make code lens sections optional ([807296a](https://github.com/tumido/cron-explained/commit/807296ae649cea5285e787d150d2d40db573d40b))
+* Reorganize the extension settings ([10d32d4](https://github.com/tumido/cron-explained/commit/10d32d44711f9e9abea8a0f9a5da7a5cebc1500c))
+* Show cron transcript in a code lens ([f4f55c6](https://github.com/tumido/cron-explained/commit/f4f55c6896d95cb6502e1e9eb7b0299b94fe70ec))
+
 ## [1.1.2](https://github.com/tumido/cron-explained/compare/v1.1.1...v1.1.2) (2020-12-21)
 
 
