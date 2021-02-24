@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/tumido/cron-explained/compare/v1.2.0...v1.2.1) (2021-02-24)
+
+
+### Bug Fixes
+
+* Fix cron regex lookahead and lookbehind ([729b636](https://github.com/tumido/cron-explained/commit/729b6365be59b6d9bf6bf8964c64b4f99106933f))
+
 # [1.2.0](https://github.com/tumido/cron-explained/compare/v1.1.2...v1.2.0) (2021-02-24)
 
 
