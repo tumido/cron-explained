@@ -1,9 +1,9 @@
 import * as assert from 'assert';
-import * as regex from '../../regex';
+import cronRegex from '../../regex';
 import * as samples from './samples';
 
 suite('regex', () => {
-    const regexp = new RegExp("^" + regex.longFormatCron + "$", 'i');
+    const regexp = new RegExp(`^${cronRegex}$`, 'i');
 
     samples.positive.forEach((string) =>
         test(`${string} is valid`, () => {
