@@ -123,29 +123,20 @@ const codeLensProvider = (doc: vscode.TextDocument, token: vscode.CancellationTo
         const position = new vscode.Position(line.lineNumber, indexOf);
         const range = doc.getWordRangeAtPosition(position, new RegExp(regexpBase, 'i'));
         if (range) {
-            codeLenses.push(new vscode.CodeLens(range));
+            const translated = translate(doc.getText(range));
+            if (!translated) { continue; }
+
+            codeLenses.push(new vscode.CodeLens(range, { title: "🕑 " + translated, command: "" }));
+            codeLenses.push(new vscode.CodeLens(range, {
+                title: "Insert comment",
+                command: "cron-explained.insertComment",
+                arguments: [range]
+            }));
         }
         if (token.isCancellationRequested) { break; }
     }
     return codeLenses;
 };
-
-/**
- * Resolves command for a code lense instance.
- * @param codeLens A code lens instance.
- * @param token Cancellation token.
- */
-const codeLensResolver = (codeLens: vscode.CodeLens, token: vscode.CancellationToken) => {
-    if (!isCodeLenseEnabled() || token.isCancellationRequested) { return null; }
-
-    codeLens.command = {
-        title: "Explain Cron",
-        command: "cron-explained.insertComment",
-        arguments: [codeLens.range]
-    };
-    return codeLens;
-};
-
 
 /**
  * Helper for changing configuration values.
@@ -162,7 +153,7 @@ export const activate = (context: vscode.ExtensionContext) => {
         vscode.commands.registerCommand("cron-explained.toggleCodeLens", changeSettingsState("enableCodeLens")),
         vscode.commands.registerCommand("cron-explained.toggleHover", changeSettingsState("enableHover")),
         vscode.commands.registerTextEditorCommand('cron-explained.insertComment', insertComment),
-        vscode.languages.registerCodeLensProvider("*", { provideCodeLenses: codeLensProvider, resolveCodeLens: codeLensResolver }),
+        vscode.languages.registerCodeLensProvider("*", { provideCodeLenses: codeLensProvider, resolveCodeLens: codeLens => codeLens }),
         vscode.languages.registerHoverProvider('*', { provideHover: hoverProvider }),
         vscode.workspace.onDidChangeConfiguration(handleConfigChange),
     ].map(disposable => context.subscriptions.push(disposable));
