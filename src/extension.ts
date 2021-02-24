@@ -2,11 +2,12 @@ import * as vscode from 'vscode';
 import cronstrue from 'cronstrue';
 import type { Options } from 'cronstrue/dist/options';
 import getCommentStyle from './commentStyles';
+import cronRegex from './regex';
 
 const regexpSections = [
     "(@(annually|yearly|monthly|weekly|daily|hourly|reboot))",
     "|(@every (\\d+(ns|us|µs|ms|s|m|h))+)",
-    "|((((\\d+,)+\\d+|((\\d+|\\*)(\\/|-)\\d+)|\\d+|\\*) ?){5,7})"
+    `|${cronRegex}`
 ];
 
 const regexpSelfExplanatory = regexpSections.slice(0, 2).join("");
@@ -54,7 +55,7 @@ export const translate = (string: string): string => {
  * @param anotherPosition Optional position elsewhere than the current cursor, inferred for code lenses.
  */
 const insertComment = (editor: vscode.TextEditor, edit: vscode.TextEditorEdit, anotherPosition?: vscode.Range) => {
-    const regexp = new RegExp(regexpBase);
+    const regexp = new RegExp(regexpBase, 'i');
     const lineNumber = anotherPosition?.start.line || editor.selection.start.line;
     const textLine = editor.document.lineAt(lineNumber);
     const matches = textLine.text.match(regexp);
@@ -95,7 +96,7 @@ const handleConfigChange = (event: vscode.ConfigurationChangeEvent) => {
  */
 const hoverProvider = (doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken) => {
     if (!isHoverEnabled()) { return null; }
-    const regexp = new RegExp(regexpBase);
+    const regexp = new RegExp(regexpBase, 'i');
     const range = doc.getWordRangeAtPosition(pos, regexp);
     if (!range) { return; }
     const translated = translate(doc.getText(range));
@@ -113,14 +114,14 @@ const codeLensProvider = (doc: vscode.TextDocument, token: vscode.CancellationTo
 
     const text = doc.getText();
     const codeLenses = [];
-    const regexp = new RegExp(regexpBase, "g");
+    const regexp = new RegExp(regexpBase, "gi");
 
     let matches;
     while ((matches = regexp.exec(text)) !== null) {
         const line = doc.lineAt(doc.positionAt(matches.index).line);
         const indexOf = line.text.indexOf(matches[0]);
         const position = new vscode.Position(line.lineNumber, indexOf);
-        const range = doc.getWordRangeAtPosition(position, new RegExp(regexpBase));
+        const range = doc.getWordRangeAtPosition(position, new RegExp(regexpBase, 'i'));
         if (range) {
             codeLenses.push(new vscode.CodeLens(range));
         }
