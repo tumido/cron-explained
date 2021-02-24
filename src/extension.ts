@@ -29,6 +29,7 @@ let cronstrueOptions = getConstrueOptions();
 
 const isCodeLenseEnabled = (): boolean => vscode.workspace.getConfiguration("cron-explained").get("codeLens.enabled", true);
 const isHoverEnabled = (): boolean => vscode.workspace.getConfiguration("cron-explained").get("hover.enabled", true);
+const codeLensSettings = (property: string): boolean => vscode.workspace.getConfiguration("cron-explained.codeLens").get(property, true);
 
 /**
  * Parses a cron string into a human readable format.
@@ -122,17 +123,22 @@ const codeLensProvider = (doc: vscode.TextDocument, token: vscode.CancellationTo
         const indexOf = line.text.indexOf(matches[0]);
         const position = new vscode.Position(line.lineNumber, indexOf);
         const range = doc.getWordRangeAtPosition(position, new RegExp(regexpBase, 'i'));
-        if (range) {
-            const translated = translate(doc.getText(range));
-            if (!translated) { continue; }
+        if (!range) { continue; }
 
-            codeLenses.push(new vscode.CodeLens(range, { title: "🕑 " + translated, command: "" }));
+        const translated = translate(doc.getText(range));
+        if (!translated) { continue; }
+
+        if (codeLensSettings('showTranscript')) {
+            codeLenses.push(new vscode.CodeLens(range, { title: translated, command: "" }));
+        }
+        if (codeLensSettings('showCommentAction')) {
             codeLenses.push(new vscode.CodeLens(range, {
                 title: "Insert comment",
                 command: "cron-explained.insertComment",
                 arguments: [range]
             }));
         }
+
         if (token.isCancellationRequested) { break; }
     }
     return codeLenses;
