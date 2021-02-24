@@ -7,7 +7,7 @@ suite('executeCommand', () => {
     let configuration: [string, string | undefined][] = [];
 
     suiteSetup(() => {
-        configuration = ['enableCodeLens', 'enableHover'].map(setting => (
+        configuration = ['codeLens.enabled', 'hover.enabled'].map(setting => (
             [setting, vscode.workspace.getConfiguration('cron-explained').get(setting)]
         ));
     });
@@ -33,29 +33,29 @@ suite('executeCommand', () => {
 
     suite('cron-explained.toggleCodeLens', () => {
         test('should be enabled', async () => {
-            await vscode.workspace.getConfiguration('cron-explained').update('enableCodeLens', false, true);
+            await vscode.workspace.getConfiguration('cron-explained').update('codeLens.enabled', false, true);
             await vscode.commands.executeCommand('cron-explained.toggleCodeLens');
-            assert.strictEqual(vscode.workspace.getConfiguration('cron-explained').get('enableCodeLens'), true);
+            assert.strictEqual(vscode.workspace.getConfiguration('cron-explained').get('codeLens.enabled'), true);
         });
 
         test('should be disabled', async () => {
-            await vscode.workspace.getConfiguration('cron-explained').update('enableCodeLens', true, true);
+            await vscode.workspace.getConfiguration('cron-explained').update('codeLens.enabled', true, true);
             await vscode.commands.executeCommand('cron-explained.toggleCodeLens');
-            assert.strictEqual(vscode.workspace.getConfiguration('cron-explained').get('enableCodeLens'), false);
+            assert.strictEqual(vscode.workspace.getConfiguration('cron-explained').get('codeLens.enabled'), false);
         });
     });
 
     suite('cron-explained.toggleHover', () => {
         test('should be enabled', async () => {
-            await vscode.workspace.getConfiguration('cron-explained').update('enableHover', false, true);
+            await vscode.workspace.getConfiguration('cron-explained').update('hover.enabled', false, true);
             await vscode.commands.executeCommand('cron-explained.toggleHover');
-            assert.strictEqual(vscode.workspace.getConfiguration('cron-explained').get('enableHover'), true);
+            assert.strictEqual(vscode.workspace.getConfiguration('cron-explained').get('hover.enabled'), true);
         });
 
         test('should be disabled', async () => {
-            await vscode.workspace.getConfiguration('cron-explained').update('enableHover', true, true);
+            await vscode.workspace.getConfiguration('cron-explained').update('hover.enabled', true, true);
             await vscode.commands.executeCommand('cron-explained.toggleHover');
-            assert.strictEqual(vscode.workspace.getConfiguration('cron-explained').get('enableHover'), false);
+            assert.strictEqual(vscode.workspace.getConfiguration('cron-explained').get('hover.enabled'), false);
         });
     });
 
@@ -78,13 +78,13 @@ suite('unit', () => {
         });
 
         test('should use env locale', async () => {
-            await vscode.workspace.getConfiguration('cron-explained').update('locale', undefined, true);
+            await vscode.workspace.getConfiguration('cron-explained').update('cronstrueOptions.locale', undefined, true);
             const options = extension.getConstrueOptions();
             assert.strictEqual(options.locale, vscode.env.language);
         });
 
         test('should use set locale', async () => {
-            await vscode.workspace.getConfiguration('cron-explained').update('locale', 'de', true);
+            await vscode.workspace.getConfiguration('cron-explained').update('cronstrueOptions.locale', 'de', true);
             const options = extension.getConstrueOptions();
             assert.strictEqual(options.locale, 'de');
         });
