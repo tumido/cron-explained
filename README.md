@@ -34,13 +34,15 @@ Command allowing you add an inline comment with the explanation.
 
 This extension contributes the following settings:
 
-| Settings                             | Description                                               | Default value        |
-| ------------------------------------ | --------------------------------------------------------- | -------------------- |
-| `cron-explained.use24HourTimeFormat` | If set, descriptions will use a 24-hour clock.            | `true`               |
-| `cron-explained.verbose`             | Whether to use a verbose description.                     | `true`               |
-| `cron-explained.enableCodeLens`      | When enabled, the transcript is shown as a code lens.     | `false`              |
-| `cron-explained.enableHover`         | When enabled, the transcript is shown in a hover tooltip. | `true`               |
-| `cron-explained.locale`              | Enforce specific language for transcriptions.             | Environment language |
+| Settings                                              | Description                                               | Default value        |
+| ----------------------------------------------------- | --------------------------------------------------------- | -------------------- |
+| `cron-explained.hover.enabled`                        | When enabled, the transcript is shown in a hover tooltip. | `true`               |
+| `cron-explained.codeLens.enabled`                     | When enabled, the transcript is shown as a code lens.     | `false`              |
+| `cron-explained.codeLens.showTranscript`              | Show the transcript of a cron string in a code lens.      | `true`               |
+| `cron-explained.codeLens.showCommentAction`           | Show action to insert comment for a cron string.          | `true`               |
+| `cron-explained.cronstrueOptions.use24HourTimeFormat` | If set, descriptions will use a 24-hour clock.            | `true`               |
+| `cron-explained.cronstrueOptions.verbose`             | Whether to use a verbose description.                     | `true`               |
+| `cron-explained.cronstrueOptions.locale`              | Enforce specific language for transcriptions.             | Environment language |
 
 ## Credit
 
