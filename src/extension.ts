@@ -17,7 +17,7 @@ const regexpBase = regexpSections.join("");
  * Create construe options object from workspace configuration and environment.
  */
 export const getConstrueOptions = (): Options => {
-    const config = vscode.workspace.getConfiguration('cron-explained');
+    const config = vscode.workspace.getConfiguration('cron-explained.cronstrueOptions');
     return {
         use24HourTimeFormat: Boolean(config.get('use24HourTimeFormat')),
         verbose: Boolean(config.get('verbose')),
@@ -27,8 +27,8 @@ export const getConstrueOptions = (): Options => {
 
 let cronstrueOptions = getConstrueOptions();
 
-const isCodeLenseEnabled = (): boolean => vscode.workspace.getConfiguration("cron-explained").get("enableCodeLens", true);
-const isHoverEnabled = (): boolean => vscode.workspace.getConfiguration("cron-explained").get("enableHover", true);
+const isCodeLenseEnabled = (): boolean => vscode.workspace.getConfiguration("cron-explained").get("codeLens.enabled", true);
+const isHoverEnabled = (): boolean => vscode.workspace.getConfiguration("cron-explained").get("hover.enabled", true);
 
 /**
  * Parses a cron string into a human readable format.
@@ -150,8 +150,8 @@ const changeSettingsState = (property: string) => async () => {
 
 export const activate = (context: vscode.ExtensionContext) => {
     [
-        vscode.commands.registerCommand("cron-explained.toggleCodeLens", changeSettingsState("enableCodeLens")),
-        vscode.commands.registerCommand("cron-explained.toggleHover", changeSettingsState("enableHover")),
+        vscode.commands.registerCommand("cron-explained.toggleCodeLens", changeSettingsState("codeLens.enabled")),
+        vscode.commands.registerCommand("cron-explained.toggleHover", changeSettingsState("hover.enabled")),
         vscode.commands.registerTextEditorCommand('cron-explained.insertComment', insertComment),
         vscode.languages.registerCodeLensProvider("*", { provideCodeLenses: codeLensProvider, resolveCodeLens: codeLens => codeLens }),
         vscode.languages.registerHoverProvider('*', { provideHover: hoverProvider }),
