@@ -1,25 +1,21 @@
-enum SpecialCase {
+enum Kind {
     dayOfWeek, dayOfMonth, month, none
 }
-const toRange = (unit: String): String => `(${unit})(-(${unit}))?`;
+const toRange = (unit: String, kind: Kind = Kind.none): String =>
+    kind === Kind.dayOfWeek
+        ? `((${unit})|\\*)(((\\/|#)\\d+)|(-(${unit})))*`
+        : `((${unit})|\\*)((\\/\\d+)|(-(${unit})))*`;
 
-const verboseMonthsRange = toRange("JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC");
-const verboseDayOfWeekRange = toRange("MON|TUE|WED|THU|FRI|SAT|SUN");
+const mapBaseRegex = (unit: String, kind: Kind = Kind.none): String => {
+    if (kind === Kind.dayOfMonth) { unit = `(${unit})|((${unit})L)|(L(${unit}))|L`; }
 
-const mapBaseRegex = (unit: String, specialCase: SpecialCase = SpecialCase.none): String => {
-    if (specialCase === SpecialCase.dayOfMonth) { unit = `(${unit})|((${unit})L)|(L(${unit}))|L`; }
+    let result = toRange(unit, kind);
 
-    let range = specialCase === SpecialCase.dayOfWeek
-        ? `((${unit})|\\*)((-|\\/|,|#)(${unit}))*`
-        : `((${unit})|\\*)((-|\\/|,)(${unit}))*`;
+    if (kind === Kind.dayOfWeek) { result += "L?"; }
 
-    if (specialCase === SpecialCase.dayOfWeek) { range += "L?"; }
+    result = `\\?|\\*|(${result}(,${result})*)`;
 
-    let result = `\\?|\\*|(${range}(,${range})*)`;
-
-    if (specialCase === SpecialCase.dayOfMonth) { result += `|((${unit})W)|(W(${unit}))|W|WL|LW`; }
-    if (specialCase === SpecialCase.dayOfWeek) { result += `|${verboseDayOfWeekRange}(,${verboseDayOfWeekRange})*|L`; }
-    if (specialCase === SpecialCase.month) { result += `|${verboseMonthsRange}(,${verboseDayOfWeekRange})*`; }
+    if (kind === Kind.dayOfMonth) { result += `|((${unit})W)|(W(${unit}))|W|WL|LW`; }
 
     return `(${result})`;
 };
@@ -29,9 +25,9 @@ export const longFormatCron =
     [
         mapBaseRegex("[0-5]?\\d"),
         mapBaseRegex("[01]?\\d|2[0-3]"),
-        mapBaseRegex("0?[1-9]|[12]\\d|3[01]", SpecialCase.dayOfMonth),
-        mapBaseRegex("[1-9]|1[012]", SpecialCase.month),
-        mapBaseRegex("[0-7]", SpecialCase.dayOfWeek),
+        mapBaseRegex("0?[1-9]|[12]\\d|3[01]", Kind.dayOfMonth),
+        mapBaseRegex("[1-9]|1[012]|JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC", Kind.month),
+        mapBaseRegex("[0-7]|MON|TUE|WED|THU|FRI|SAT|SUN|L", Kind.dayOfWeek),
     ].join("\\s+") +
     `(\\s+${mapBaseRegex("\\d{4}")})?` +
     "(?!(\\d|\\w))";
