@@ -33,5 +33,5 @@ const sections = {
 const standard = [sections.minutes, sections.hours, sections.dayOfMonth, sections.month, sections.dayOfWeek].join("\\s+");
 const quartz = [sections.seconds, sections.minutes, sections.hours, sections.dayOfMonth, sections.month, sections.dayOfWeek].join("\\s+") + `(\\s+${sections.year})?`;
 
-const cron = `((?<!(\\d|\\w))(((${quartz})|(${standard})))(?!(\\d|\\w)))`;
+const cron = `((?<!(((\\d|\\*)\\s+)|\\w|-|\\/))(((${quartz})|(${standard})))(?!(\\s?(\\d|\\?|\\*))))`;
 export default cron;
