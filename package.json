@@ -67,30 +67,40 @@
         "configuration": {
             "title": "Cron Helper",
             "properties": {
-                "cron-explained.use24HourTimeFormat": {
+                "cron-explained.cronstrueOptions.use24HourTimeFormat": {
                     "type": "boolean",
                     "default": true,
-                    "description": "If true, descriptions will use a 24-hour clock."
+                    "markdownDescription": "If true, descriptions will use a 24-hour clock. For more information on `cronstrue` options, see [here](https://github.com/bradymholt/cRonstrue/#options)."
                 },
-                "cron-explained.verbose": {
+                "cron-explained.cronstrueOptions.locale": {
+                    "type": "string",
+                    "default": "",
+                    "markdownDescription": "Enforce specific language for transcriptions. By default the VSCode environment language is used. For more information on `cronstrue` options, see [here](https://github.com/bradymholt/cRonstrue/#options)."
+                },
+                "cron-explained.cronstrueOptions.verbose": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Whether to use a verbose description."
+                    "markdownDescription": "Whether to use a verbose description. For more information on `cronstrue` options, see [here](https://github.com/bradymholt/cRonstrue/#options)."
                 },
-                "cron-explained.enableCodeLens": {
+                "cron-explained.codeLens.enabled": {
                     "type": "boolean",
                     "default": false,
                     "description": "When enabled, the transcript is shown as a code lens."
                 },
-                "cron-explained.enableHover": {
+                "cron-explained.codeLens.showTranscript": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Show the transcript of a cron string."
+                },
+                "cron-explained.codeLens.showCommentAction": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Show action to insert comment for a cron string."
+                },
+                "cron-explained.hover.enabled": {
                     "type": "boolean",
                     "default": true,
                     "description": "When enabled, the transcript is shown in a hover tooltip."
-                },
-                "cron-explained.locale": {
-                    "type": "string",
-                    "default": "",
-                    "description": "Enforce specific language for transcriptions. By default the VSCode environment language is used."
                 }
             }
         }

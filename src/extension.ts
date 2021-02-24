@@ -17,7 +17,7 @@ const regexpBase = regexpSections.join("");
  * Create construe options object from workspace configuration and environment.
  */
 export const getConstrueOptions = (): Options => {
-    const config = vscode.workspace.getConfiguration('cron-explained');
+    const config = vscode.workspace.getConfiguration('cron-explained.cronstrueOptions');
     return {
         use24HourTimeFormat: Boolean(config.get('use24HourTimeFormat')),
         verbose: Boolean(config.get('verbose')),
@@ -27,8 +27,9 @@ export const getConstrueOptions = (): Options => {
 
 let cronstrueOptions = getConstrueOptions();
 
-const isCodeLenseEnabled = (): boolean => vscode.workspace.getConfiguration("cron-explained").get("enableCodeLens", true);
-const isHoverEnabled = (): boolean => vscode.workspace.getConfiguration("cron-explained").get("enableHover", true);
+const isCodeLenseEnabled = (): boolean => vscode.workspace.getConfiguration("cron-explained").get("codeLens.enabled", true);
+const isHoverEnabled = (): boolean => vscode.workspace.getConfiguration("cron-explained").get("hover.enabled", true);
+const codeLensSettings = (property: string): boolean => vscode.workspace.getConfiguration("cron-explained.codeLens").get(property, true);
 
 /**
  * Parses a cron string into a human readable format.
@@ -95,10 +96,10 @@ const handleConfigChange = (event: vscode.ConfigurationChangeEvent) => {
  * @param token Cancellation token.
  */
 const hoverProvider = (doc: vscode.TextDocument, pos: vscode.Position, token: vscode.CancellationToken) => {
-    if (!isHoverEnabled()) { return null; }
+    if (!isHoverEnabled() || token.isCancellationRequested) { return null; }
     const regexp = new RegExp(regexpBase, 'i');
     const range = doc.getWordRangeAtPosition(pos, regexp);
-    if (!range) { return; }
+    if (!range || token.isCancellationRequested) { return; }
     const translated = translate(doc.getText(range));
 
     return translated ? new vscode.Hover(translated) : null;
@@ -110,7 +111,7 @@ const hoverProvider = (doc: vscode.TextDocument, pos: vscode.Position, token: vs
  * @param token Cancellation token.
  */
 const codeLensProvider = (doc: vscode.TextDocument, token: vscode.CancellationToken) => {
-    if (!isCodeLenseEnabled()) { return []; }
+    if (!isCodeLenseEnabled() || token.isCancellationRequested) { return []; }
 
     const text = doc.getText();
     const codeLenses = [];
@@ -122,29 +123,26 @@ const codeLensProvider = (doc: vscode.TextDocument, token: vscode.CancellationTo
         const indexOf = line.text.indexOf(matches[0]);
         const position = new vscode.Position(line.lineNumber, indexOf);
         const range = doc.getWordRangeAtPosition(position, new RegExp(regexpBase, 'i'));
-        if (range) {
-            codeLenses.push(new vscode.CodeLens(range));
+        if (!range) { continue; }
+
+        const translated = translate(doc.getText(range));
+        if (!translated) { continue; }
+
+        if (codeLensSettings('showTranscript')) {
+            codeLenses.push(new vscode.CodeLens(range, { title: translated, command: "" }));
         }
+        if (codeLensSettings('showCommentAction')) {
+            codeLenses.push(new vscode.CodeLens(range, {
+                title: "Insert comment",
+                command: "cron-explained.insertComment",
+                arguments: [range]
+            }));
+        }
+
+        if (token.isCancellationRequested) { break; }
     }
     return codeLenses;
 };
-
-/**
- * Resolves command for a code lense instance.
- * @param codeLens A code lens instance.
- * @param token Cancellation token.
- */
-const codeLensResolver = (codeLens: vscode.CodeLens, token: vscode.CancellationToken) => {
-    if (!isCodeLenseEnabled()) { return null; }
-
-    codeLens.command = {
-        title: "Explain Cron",
-        command: "cron-explained.insertComment",
-        arguments: [codeLens.range]
-    };
-    return codeLens;
-};
-
 
 /**
  * Helper for changing configuration values.
@@ -158,10 +156,10 @@ const changeSettingsState = (property: string) => async () => {
 
 export const activate = (context: vscode.ExtensionContext) => {
     [
-        vscode.commands.registerCommand("cron-explained.toggleCodeLens", changeSettingsState("enableCodeLens")),
-        vscode.commands.registerCommand("cron-explained.toggleHover", changeSettingsState("enableHover")),
+        vscode.commands.registerCommand("cron-explained.toggleCodeLens", changeSettingsState("codeLens.enabled")),
+        vscode.commands.registerCommand("cron-explained.toggleHover", changeSettingsState("hover.enabled")),
         vscode.commands.registerTextEditorCommand('cron-explained.insertComment', insertComment),
-        vscode.languages.registerCodeLensProvider("*", { provideCodeLenses: codeLensProvider, resolveCodeLens: codeLensResolver }),
+        vscode.languages.registerCodeLensProvider("*", { provideCodeLenses: codeLensProvider, resolveCodeLens: codeLens => codeLens }),
         vscode.languages.registerHoverProvider('*', { provideHover: hoverProvider }),
         vscode.workspace.onDidChangeConfiguration(handleConfigChange),
     ].map(disposable => context.subscriptions.push(disposable));
