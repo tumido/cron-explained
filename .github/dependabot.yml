@@ -1,15 +1,21 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "04:00"
-  open-pull-requests-limit: 10
-  assignees:
-  - tumido
-  ignore:
-  - dependency-name: "@types/vscode"
-    versions:
-    - "> 1.51.0"
-    - "< 2"
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 10
+    assignees:
+      - tumido
+    ignore:
+      - dependency-name: "@types/vscode"
+        versions:
+          - "> 1.51.0"
+          - "< 2"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 10
+    assignees:
+      - tumido
