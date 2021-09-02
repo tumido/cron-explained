@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/tumido/cron-explained/compare/v1.3.0...v1.3.1) (2021-09-02)
+
+
+### Bug Fixes
+
+* Options name conflict ([9d68eb4](https://github.com/tumido/cron-explained/commit/9d68eb477b0c67d014c5df3c4fbdb759d17c6430))
+
 # [1.3.0](https://github.com/tumido/cron-explained/compare/v1.2.1...v1.3.0) (2021-09-02)
 
 
