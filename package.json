@@ -67,7 +67,7 @@
         "configuration": {
             "title": "Cron Helper",
             "properties": {
-                "cron-explained.cronstrueOptions": {
+                "cron-explained.cronstrue": {
                     "markdownDescription": "This extension uses `cronstrue` under the hood. In the following section, you can set options passed to this library. For more information on `cronstrue` options, please consult https://github.com/bradymholt/cRonstrue/#options"
                 },
                 "cron-explained.cronstrueOptions.use24HourTimeFormat": {
