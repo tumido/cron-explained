@@ -22,6 +22,8 @@ export const getConstrueOptions = (): Options => {
         use24HourTimeFormat: Boolean(config.get('use24HourTimeFormat')),
         verbose: Boolean(config.get('verbose')),
         locale: config.get('locale') || vscode.env.language,
+        dayOfWeekStartIndexZero: config.get("dayOfWeekStartIndexZero"),
+        monthStartIndexZero: config.get("monthStartIndexZero")
     };
 };
 

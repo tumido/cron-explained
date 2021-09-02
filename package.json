@@ -67,20 +67,33 @@
         "configuration": {
             "title": "Cron Helper",
             "properties": {
+                "cron-explained.cronstrueOptions": {
+                    "markdownDescription": "This extension uses `cronstrue` under the hood. In the following section, you can set options passed to this library. For more information on `cronstrue` options, please consult https://github.com/bradymholt/cRonstrue/#options"
+                },
                 "cron-explained.cronstrueOptions.use24HourTimeFormat": {
                     "type": "boolean",
                     "default": true,
-                    "markdownDescription": "If true, descriptions will use a 24-hour clock. For more information on `cronstrue` options, see [here](https://github.com/bradymholt/cRonstrue/#options)."
+                    "markdownDescription": "If true, descriptions will use a 24-hour clock."
                 },
                 "cron-explained.cronstrueOptions.locale": {
                     "type": "string",
                     "default": "",
-                    "markdownDescription": "Enforce specific language for transcriptions. By default the VSCode environment language is used. For more information on `cronstrue` options, see [here](https://github.com/bradymholt/cRonstrue/#options)."
+                    "markdownDescription": "Enforce specific language for transcriptions.\n\n_By default the VSCode environment language is used._"
                 },
                 "cron-explained.cronstrueOptions.verbose": {
                     "type": "boolean",
                     "default": true,
-                    "markdownDescription": "Whether to use a verbose description. For more information on `cronstrue` options, see [here](https://github.com/bradymholt/cRonstrue/#options)."
+                    "markdownDescription": "Whether to use a verbose description."
+                },
+                "cron-explained.cronstrueOptions.dayOfWeekStartIndexZero": {
+                    "type": "boolean",
+                    "default": true,
+                    "markdownDescription": "Whether to interpret cron expression day of week '1' as Sunday (`false`) or Monday (`true`).\n\n_(For example: AWS uses 1 as Sunday -> set option to `false`)_"
+                },
+                "cron-explained.cronstrueOptions.monthStartIndexZero": {
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "Whether to interpret January as '0' or '1'"
                 },
                 "cron-explained.codeLens.enabled": {
                     "type": "boolean",
