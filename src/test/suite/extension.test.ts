@@ -6,10 +6,12 @@ import * as extension from '../../extension';
 suite('executeCommand', () => {
     let configuration: [string, string | undefined][] = [];
 
-    suiteSetup(() => {
+    suiteSetup(async () => {
         configuration = ['codeLens.enabled', 'hover.enabled'].map(setting => (
             [setting, vscode.workspace.getConfiguration('cron-explained').get(setting)]
         ));
+        await vscode.workspace.getConfiguration('cron-explained').update('cronstrueOptions.use24HourTimeFormat', true, true);
+        await vscode.workspace.getConfiguration('cron-explained').update('cronstrueOptions.verbose', true, true);
     });
 
     suite('cron-explained.insertComment', () => {
@@ -110,6 +112,32 @@ suite('unit', () => {
         });
         test('should fail gracefully for unknown cron format', () => {
             assert.throws(() => extension.translate('this is not a cron format'), /cron-explained: Unable to parse/);
+        });
+    });
+
+    suite('cronstrueOptions.dayOfWeekStartIndexZero', () => {
+        test('should read Friday with option to true', async () => {
+            await vscode.workspace.getConfiguration('cron-explained').update('cronstrueOptions.dayOfWeekStartIndexZero', true, true);
+            const translation = extension.translate('0 9 ? * 5 *');
+            assert.strictEqual(translation, "At 09:00, only on Friday");
+        });
+        test('should read Thursday with option to false', async () => {
+            await vscode.workspace.getConfiguration('cron-explained').update('cronstrueOptions.dayOfWeekStartIndexZero', false, true);
+            const translation = extension.translate('0 9 ? * 5 *');
+            assert.strictEqual(translation, "At 09:00, only on Thursday");
+        });
+    });
+
+    suite('cronstrueOptions.monthStartIndexZero', () => {
+        test('should read January with option to true', async () => {
+            await vscode.workspace.getConfiguration('cron-explained').update('cronstrueOptions.monthStartIndexZero', true, true);
+            const translation = extension.translate('0 0 ? 1 * *');
+            assert.strictEqual(translation, "At 00:00, every day, only in February");
+        });
+        test('should read February with option to false', async () => {
+            await vscode.workspace.getConfiguration('cron-explained').update('cronstrueOptions.monthStartIndexZero', false, true);
+            const translation = extension.translate('0 0 ? 1 * *');
+            assert.strictEqual(translation, "At 00:00, every day, only in January");
         });
     });
 });

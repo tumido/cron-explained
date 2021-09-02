@@ -34,15 +34,17 @@ Command allowing you add an inline comment with the explanation.
 
 This extension contributes the following settings:
 
-| Settings                                              | Description                                               | Default value        |
-| ----------------------------------------------------- | --------------------------------------------------------- | -------------------- |
-| `cron-explained.hover.enabled`                        | When enabled, the transcript is shown in a hover tooltip. | `true`               |
-| `cron-explained.codeLens.enabled`                     | When enabled, the transcript is shown as a code lens.     | `false`              |
-| `cron-explained.codeLens.showTranscript`              | Show the transcript of a cron string in a code lens.      | `true`               |
-| `cron-explained.codeLens.showCommentAction`           | Show action to insert comment for a cron string.          | `true`               |
-| `cron-explained.cronstrueOptions.use24HourTimeFormat` | If set, descriptions will use a 24-hour clock.            | `true`               |
-| `cron-explained.cronstrueOptions.verbose`             | Whether to use a verbose description.                     | `true`               |
-| `cron-explained.cronstrueOptions.locale`              | Enforce specific language for transcriptions.             | Environment language |
+| Settings                                                  | Description                                                                                                                                                    | Default value        |
+| --------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| `cron-explained.hover.enabled`                            | When enabled, the transcript is shown in a hover tooltip.                                                                                                      | `true`               |
+| `cron-explained.codeLens.enabled`                         | When enabled, the transcript is shown as a code lens.                                                                                                          | `false`              |
+| `cron-explained.codeLens.showTranscript`                  | Show the transcript of a cron string in a code lens.                                                                                                           | `true`               |
+| `cron-explained.codeLens.showCommentAction`               | Show action to insert comment for a cron string.                                                                                                               | `true`               |
+| `cron-explained.cronstrueOptions.use24HourTimeFormat`     | If set, descriptions will use a 24-hour clock.                                                                                                                 | `true`               |
+| `cron-explained.cronstrueOptions.verbose`                 | Whether to use a verbose description.                                                                                                                          | `true`               |
+| `cron-explained.cronstrueOptions.locale`                  | Enforce specific language for transcriptions.                                                                                                                  | Environment language |
+| `cron-explained.cronstrueOptions.dayOfWeekStartIndexZero` | Whether to interpret cron expression day of week '1' as Sunday (`false`) or Monday (`true`).\n\n_(For example: AWS uses 1 as Sunday -> set option to `false`)_ | `true`               |
+| `cron-explained.cronstrueOptions.monthStartIndexZero`     | Whether to interpret January as '0' or '1'                                                                                                                     | `true`               |
 
 ## Credit
 
