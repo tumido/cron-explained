@@ -129,7 +129,7 @@
     "devDependencies": {
         "@semantic-release/changelog": "^5.0.1",
         "@semantic-release/git": "^9.0.1",
-        "@semantic-release/github": "^7.2.3",
+        "@semantic-release/github": "^8.0.1",
         "@types/glob": "^7.1.4",
         "@types/mocha": "^9.0.0",
         "@types/node": "^16.10.1",
