@@ -127,7 +127,7 @@
         "test": "node ./out/test/runTest.js"
     },
     "devDependencies": {
-        "@semantic-release/changelog": "^6.0.0",
+        "@semantic-release/changelog": "^6.0.1",
         "@semantic-release/git": "^10.0.1",
         "@semantic-release/github": "^8.0.1",
         "@types/glob": "^7.1.4",
