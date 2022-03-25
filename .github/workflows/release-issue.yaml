@@ -27,7 +27,7 @@ jobs:
         run: exit 1
 
       - name: Close Issue
-        uses: peter-evans/close-issue@v1
+        uses: peter-evans/close-issue@v2
         if: ${{ !steps.access.outcome == 'failure' && steps.releaseLabel.outcome == 'success' }}
         with:
           issue-number: ${{ github.event.issue.number }}
@@ -154,7 +154,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Close Issue
-        uses: peter-evans/close-issue@v1
+        uses: peter-evans/close-issue@v2
         if: steps.semantic.outputs.new_release_published != 'true'
         with:
           issue-number: ${{ github.event.issue.number }}
