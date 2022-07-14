@@ -51,7 +51,7 @@ jobs:
           pat: stub
 
       - name: Archive the extension build file
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: extension
           path: "*.vsix"
