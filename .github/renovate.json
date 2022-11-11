@@ -1,4 +1,5 @@
 {
+    "ignoreDeps": ["@types/vscode"],
     "extends": [
         "config:js-lib",
         ":gitSignOff",
