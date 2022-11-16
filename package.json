@@ -141,7 +141,7 @@
         "glob": "8.0.3",
         "mocha": "10.1.0",
         "semantic-release": "19.0.5",
-        "typescript": "4.8.4"
+        "typescript": "4.9.3"
     },
     "dependencies": {
         "cronstrue": "^2.15.0"
