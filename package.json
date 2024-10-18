@@ -131,17 +131,17 @@
         "@semantic-release/git": "10.0.1",
         "@semantic-release/github": "9.0.4",
         "@types/glob": "8.1.0",
-        "@types/mocha": "10.0.1",
-        "@types/node": "18.17.14",
+        "@types/mocha": "10.0.9",
+        "@types/node": "18.19.56",
         "@types/vscode": "^1.51.0",
         "@typescript-eslint/eslint-plugin": "6.5.0",
         "@typescript-eslint/parser": "6.5.0",
-        "@vscode/test-electron": "2.3.4",
+        "@vscode/test-electron": "2.4.1",
         "eslint": "8.48.0",
         "glob": "8.1.0",
-        "mocha": "10.2.0",
+        "mocha": "10.7.3",
         "semantic-release": "21.1.1",
-        "typescript": "5.2.2"
+        "typescript": "5.6.3"
     },
     "dependencies": {
         "cronstrue": "^2.15.0"
