@@ -139,7 +139,7 @@
         "@vscode/test-electron": "2.3.4",
         "eslint": "8.48.0",
         "glob": "8.1.0",
-        "mocha": "10.2.0",
+        "mocha": "11.0.1",
         "semantic-release": "21.1.1",
         "typescript": "5.2.2"
     },
