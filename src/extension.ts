@@ -44,7 +44,7 @@ export const translate = (string: string): string => {
         if (new RegExp(regexpSelfExplanatory).test(string)) {
             return "";
         } else {
-            console.error(`Unable to parse "${string}"`);
+            console.error(`Unable to parse "${string}: ${err}"`);
             throw new Error(`cron-explained: Unable to parse "${string}"`);
         }
     }

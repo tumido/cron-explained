@@ -1,12 +1,12 @@
 enum Kind {
     dayOfWeek, dayOfMonth, none
 }
-const toRange = (unit: String, kind: Kind = Kind.none): String =>
+const toRange = (unit: string, kind: Kind = Kind.none): string =>
     kind === Kind.dayOfWeek
         ? `((${unit})|\\*)(((\\/|#)\\d+)|(-(${unit})))*`
         : `((${unit})|\\*)((\\/\\d+)|(-(${unit})))*`;
 
-const baseUnitToRegex = (unit: String, kind: Kind = Kind.none): String => {
+const baseUnitToRegex = (unit: string, kind: Kind = Kind.none): string => {
     if (kind === Kind.dayOfMonth) { unit = `(${unit})|((${unit})L)|(L(${unit}))|L`; }
 
     let result = toRange(unit, kind);

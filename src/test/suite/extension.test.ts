@@ -103,9 +103,9 @@ suite('unit', () => {
             const translation = extension.translate('0 0 0 * * * 2020');
             assert.strictEqual(translation, 'At 00:00, every day, only in 2020');
         });
-        test('should gracefully fail on trivial cron', () => {
+        test('should succeed on trivial cron', () => {
             const translation = extension.translate('@daily');
-            assert.strictEqual(translation, "");
+            assert.strictEqual(translation, "At 00:00, every day");
         });
         test('should fail for invalid cron', () => {
             assert.throws(() => extension.translate('0 0 0 0 0'), /cron-explained: Unable to parse/);

@@ -3,14 +3,16 @@ name: Release
 on:
   repository_dispatch:
     types: [trigger-release]
+  workflow_dispatch: {}
 
 jobs:
   notify-start:
     name: Notify when started
+    if: github.event.client_payload.github.event.issue.number && github.event.client_payload.commentId
     runs-on: ubuntu-latest
     steps:
       - name: Update comment
-        uses: peter-evans/create-or-update-comment@v3
+        uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.client_payload.github.event.issue.number }}
           comment-id: ${{ github.event.client_payload.commentId }}
@@ -29,9 +31,9 @@ jobs:
         uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
 
       - name: Install dependencies
         run: npm ci
@@ -44,14 +46,14 @@ jobs:
           pat: stub
 
       - name: Archive the extension build file
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: extension
           path: ${{ steps.vsixBuild.outputs.vsixPath }}
 
       - name: Get release
         id: release
-        uses: jossef/action-latest-release-info@v1.2.2
+        uses: pepoviola/action-latest-release-info@v0.0.2
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -71,7 +73,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download built extension artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         id: download
         with:
           name: extension
@@ -90,7 +92,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download built extension artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         id: download
         with:
           name: extension
@@ -105,11 +107,12 @@ jobs:
 
   notify-end:
     name: Notify when finished
+    if: github.event.client_payload.github.event.issue.number && github.event.client_payload.commentId
     needs: [publish-vs, publish-open-vsx]
     runs-on: ubuntu-latest
     steps:
       - name: Update comment
-        uses: peter-evans/create-or-update-comment@v3
+        uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.client_payload.github.event.issue.number }}
           comment-id: ${{ github.event.client_payload.commentId }}
