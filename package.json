@@ -129,9 +129,9 @@
     },
     "devDependencies": {
         "@eslint/js": "9.17.0",
-        "@semantic-release/changelog": "6.0.3",
-        "@semantic-release/git": "10.0.1",
-        "@semantic-release/github": "11.0.1",
+        "@semantic-release/changelog": "7.0.0",
+        "@semantic-release/git": "11.0.1",
+        "@semantic-release/github": "12.0.9",
         "@stylistic/eslint-plugin": "2.12.1",
         "@types/mocha": "10.0.10",
         "@types/node": "22.10.5",
@@ -141,7 +141,7 @@
         "glob": "11.0.0",
         "mocha": "11.0.1",
         "npm-check-updates": "17.1.13",
-        "semantic-release": "24.2.3",
+        "semantic-release": "25.0.9",
         "typescript": "5.7.3",
         "typescript-eslint": "8.19.1"
     },
