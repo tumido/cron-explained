@@ -41,7 +41,7 @@ jobs:
         run: exit 1
 
       - name: Create success comment
-        uses: peter-evans/create-or-update-comment@v4
+        uses: peter-evans/create-or-update-comment@v5
         if: ${{ success() }}
         id: comment
         with:
@@ -60,12 +60,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install dependencies
         run: npm ci
@@ -81,24 +81,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install dependencies
         run: npm ci
 
       - name: Build VSIX extension file
-        uses: HaaLeo/publish-vscode-extension@v1
+        uses: HaaLeo/publish-vscode-extension@v2
         with:
           dryRun: true
           pat: stub
 
       - name: Archive the extension build file
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: extension
           path: "*.vsix"
@@ -110,7 +110,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Update comment
-        uses: peter-evans/create-or-update-comment@v4
+        uses: peter-evans/create-or-update-comment@v5
         with:
           issue-number: ${{ github.event.issue.number }}
           comment-id: ${{ needs.check-release.outputs.commentId }}
@@ -118,24 +118,24 @@ jobs:
             📦 Releasing to Github...
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install dependencies
         run: npm ci
 
       - name: Release via semantic-release
-        uses: cycjimmy/semantic-release-action@v4
+        uses: cycjimmy/semantic-release-action@v6.0.0
         id: semantic
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Trigger "Release" workflow if new release was created
-        uses: peter-evans/repository-dispatch@v3
+        uses: peter-evans/repository-dispatch@v4
         if: steps.semantic.outputs.new_release_published == 'true'
         with:
           token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
@@ -143,7 +143,7 @@ jobs:
           client-payload: '{"github": ${{ toJson(github) }},"commentId": "${{ needs.check-release.outputs.commentId }}" }'
 
       - name: Update comment
-        uses: peter-evans/create-or-update-comment@v4
+        uses: peter-evans/create-or-update-comment@v5
         if: steps.semantic.outputs.new_release_published != 'true'
         with:
           issue-number: ${{ github.event.issue.number }}
