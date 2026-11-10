@@ -146,7 +146,7 @@
         "typescript-eslint": "8.19.1"
     },
     "dependencies": {
-        "cronstrue": "^2.52.0"
+        "cronstrue": "^3.0.0"
     },
     "release": {
         "branches": "master",
